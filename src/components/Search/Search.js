@@ -8,13 +8,23 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries, fetchRandom }) => {
+const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
   const [query, setQuery] = useState("");
 
   const handleInputChange = ({ target }) => setQuery(target.value);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(query);
+
+    if (typeof query !== "string" || query.trim() === "") {
+      return;
+    }
+
+    try {
+      fetchEntries(query);
+    } catch (err) {
+      setErrorMessage(err.message);
+    }
   };
 
   return (
@@ -25,13 +35,13 @@ const Search = ({ fetchEntries, fetchRandom }) => {
             name="search-input"
             value={query}
             onChange={handleInputChange}
-            placeholder={"Type to search..."}
+            placeholder="Type to search..."
           />
           <SearchButton name="search-button">
             <FaSearch />
           </SearchButton>
         </SearchForm>
-        <RandomArticleButton onClick={fetchRandom}>
+        <RandomArticleButton href={fetchRandom} target="_blank">
           Random Article
         </RandomArticleButton>
       </SearchContainer>

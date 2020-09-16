@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Header, Search, Entries } from "./components";
+import axios from "axios";
+import { Header, Search, Entries, Error } from "./components";
 import { GlobalStyle } from "./globalStyles.js";
 
 const App = () => {
@@ -7,22 +8,38 @@ const App = () => {
   const [error, setError] = useState(false);
 
   const fetchEntries = (query) => {
-    // ...
-    // fetch query
-    // if success update entries
-    // else display error
+    const baseUrl = "https://en.wikipedia.org//w/api.php";
+
+    const params = {
+      action: "query",
+      list: "search",
+      srsearch: query,
+      format: "json",
+      origin: "*",
+    };
+
+    axios
+      .get(baseUrl, { params })
+      .then((res) => {
+        setEntries(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
-    const fetchRandom = () => {
-        // get random wiki page
-    }
+  const fetchRandom = "https://en.wikipedia.org/wiki/Special:Random";
 
   return (
     <>
       <GlobalStyle />
       <Header />
-      <Search fetchEntries={fetchEntries} fetchRandom={fetchRandom} />
-      <Entries entries={entries} />
+      <Search
+        fetchEntries={fetchEntries}
+        fetchRandom={fetchRandom}
+        setErrorMessage={setError}
+      />
+      {entries ? <Entries entries={entries} /> : null}
+      {error ? <Error message={error} /> : null}
     </>
   );
 };
