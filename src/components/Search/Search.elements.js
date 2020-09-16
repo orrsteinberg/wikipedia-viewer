@@ -7,7 +7,7 @@ export const SearchContainer = styled(Container)`
 `;
 
 export const SearchForm = styled.form`
-  margin: 20px auto;
+  margin: 20px auto 30px auto;
   background-color: #fff;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -46,15 +46,10 @@ export const RandomArticleButton = styled.a`
   text-align: center;
   text-decoration: none;
   padding: 12px 12px;
-  margin-left: auto;
   background-color: #13a360;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
   color: #fff;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #e64922;
-  }
 `;
