@@ -14,7 +14,7 @@ const Header = () => {
         <HeaderWrapper>
           <Logo />
           <HeaderTitle>Wikipedia Viewer</HeaderTitle>
-          <HeaderSubtitle>What are you interseted in?</HeaderSubtitle>
+          <HeaderSubtitle>What are you interested in?</HeaderSubtitle>
         </HeaderWrapper>
       </Container>
     </header>
