@@ -15,6 +15,11 @@ const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (typeof query !== "string" || query.trim() === "") {
+      return;
+    }
+
     try {
       fetchEntries(query);
     } catch (err) {
