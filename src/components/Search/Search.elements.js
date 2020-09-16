@@ -3,6 +3,7 @@ import { Container } from "../../globalStyles";
 
 export const SearchContainer = styled(Container)`
   text-align: center;
+  margin-bottom: 30px;
 `;
 
 export const SearchForm = styled.form`
