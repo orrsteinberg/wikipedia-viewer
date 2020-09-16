@@ -12,7 +12,7 @@ export const EntriesContainer = styled(Container)`
 
 export const Card = styled.article`
   padding: 15px 15px;
-  max-width: 50%;
+  max-width: 30%;
   min-width: 400px;
 `;
 
@@ -56,7 +56,12 @@ export const EntryLink = styled.a`
   }
 `;
 
-export const EntryText = styled.p``;
+export const EntryText = styled.p`
+  & > span {
+    padding: 5px;
+    background-color: #f1fdb9;
+  }
+`;
 
 export const CardHeaderWikiIcon = styled(FaWikipediaW)`
   color: #747474;
