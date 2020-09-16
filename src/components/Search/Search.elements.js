@@ -41,8 +41,9 @@ export const SearchButton = styled.button`
   }
 `;
 
-export const RandomArticleButton = styled.button`
+export const RandomArticleButton = styled.a`
   text-align: center;
+  text-decoration: none;
   padding: 12px 12px;
   margin-left: auto;
   background-color: #13a360;

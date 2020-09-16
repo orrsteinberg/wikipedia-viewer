@@ -13,9 +13,7 @@ const App = () => {
     // else display error
   };
 
-    const fetchRandom = () => {
-        // get random wiki page
-    }
+  const fetchRandom = "https://en.wikipedia.org/wiki/Special:Random";
 
   return (
     <>

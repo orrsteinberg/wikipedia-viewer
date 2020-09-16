@@ -31,7 +31,7 @@ const Search = ({ fetchEntries, fetchRandom }) => {
             <FaSearch />
           </SearchButton>
         </SearchForm>
-        <RandomArticleButton onClick={fetchRandom}>
+        <RandomArticleButton href={fetchRandom} target="_blank">
           Random Article
         </RandomArticleButton>
       </SearchContainer>
