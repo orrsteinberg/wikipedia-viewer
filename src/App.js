@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Header, Search, Entries, Error } from "./components";
+import { Header, Search, Entries, Error, Loading } from "./components";
 import { GlobalStyle } from "./globalStyles.js";
 
 const App = () => {
   const [entries, setEntries] = useState(null);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchEntries = (query) => {
+    setEntries(null);
+    setLoading(true);
+
     const baseUrl = "https://en.wikipedia.org//w/api.php";
 
     const params = {
@@ -20,11 +24,13 @@ const App = () => {
 
     axios
       .get(baseUrl, { params })
-      .then((res) => {
-        setEntries(res.data.query.search);
-        console.log(res.data.query.search);
+      .then(({ data }) => {
+        setLoading(false);
+        setEntries(data.query.search);
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        throw new Error("Oops! Something went wrong");
+      });
   };
 
   const fetchRandom = "https://en.wikipedia.org/wiki/Special:Random";
@@ -38,6 +44,7 @@ const App = () => {
         fetchRandom={fetchRandom}
         setErrorMessage={setError}
       />
+      {loading ? <Loading /> : null}
       {entries ? <Entries entries={entries} /> : null}
       {error ? <Error message={error} /> : null}
     </>
