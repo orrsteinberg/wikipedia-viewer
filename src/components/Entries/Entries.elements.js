@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FaWikipediaW } from "react-icons/fa";
 import { Container } from "../../globalStyles";
+
+const rotateIn = keyframes`
+    0% { transform: rotate(-10deg); opacity: 0 }
+    100% { transform: rotate(0); opacity: 1 }
+`;
 
 export const EntriesContainer = styled(Container)`
   margin-top: 20px;
@@ -14,6 +19,7 @@ export const Card = styled.article`
   padding: 15px 15px;
   max-width: 30%;
   min-width: 400px;
+  animation: ${rotateIn} 0.6s forwards;
 `;
 
 export const CardHeader = styled.div`
