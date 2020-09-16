@@ -6,17 +6,22 @@ const App = () => {
   const [entries, setEntries] = useState(null);
   const [error, setError] = useState(false);
 
-  const updateEntries = (query) => {
+  const fetchEntries = (query) => {
     // ...
     // fetch query
-    // setEntries
+    // if success update entries
+    // else display error
   };
+
+    const fetchRandom = () => {
+        // get random wiki page
+    }
 
   return (
     <>
       <GlobalStyle />
       <Header />
-      <Search update={updateEntries} />
+      <Search fetchEntries={fetchEntries} fetchRandom={fetchRandom} />
       <Entries entries={entries} />
     </>
   );
