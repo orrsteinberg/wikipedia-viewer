@@ -1,0 +1,24 @@
+import React from "react";
+import { Container } from "../../globalStyles";
+import {
+  HeaderWrapper,
+  Logo,
+  HeaderTitle,
+  HeaderSubtitle,
+} from "./Header.elements";
+
+const Header = () => {
+  return (
+    <header>
+      <Container>
+        <HeaderWrapper>
+          <Logo />
+          <HeaderTitle>Wikipedia Viewer</HeaderTitle>
+          <HeaderSubtitle>What are you interseted in?</HeaderSubtitle>
+        </HeaderWrapper>
+      </Container>
+    </header>
+  );
+};
+
+export default Header;
