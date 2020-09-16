@@ -26,7 +26,6 @@ const Search = ({ fetchEntries, fetchRandom }) => {
             value={query}
             onChange={handleInputChange}
             placeholder={"Type to search..."}
-            required
           />
           <SearchButton name="search-button">
             <FaSearch />
