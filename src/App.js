@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Header, Search, Entries } from "./components";
+import { Header, Search, Entries, Error } from "./components";
 import { GlobalStyle } from "./globalStyles.js";
 
 const App = () => {
@@ -19,8 +19,13 @@ const App = () => {
     <>
       <GlobalStyle />
       <Header />
-      <Search fetchEntries={fetchEntries} fetchRandom={fetchRandom} />
-      <Entries entries={entries} />
+      <Search
+        fetchEntries={fetchEntries}
+        fetchRandom={fetchRandom}
+        setErrorMessage={setError}
+      />
+      {entries ? <Entries entries={entries} /> : null}
+      {error ? <Error message={error} /> : null}
     </>
   );
 };
