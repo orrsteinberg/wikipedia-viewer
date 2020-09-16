@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Header, Search, Entries } from "./components";
+import { GlobalStyle } from "./globalStyles.js";
 
 const App = () => {
   const [entries, setEntries] = useState(null);
+  const [error, setError] = useState(false);
 
   const updateEntries = (query) => {
     // ...
@@ -12,8 +14,9 @@ const App = () => {
 
   return (
     <>
+      <GlobalStyle />
       <Header />
-      <Search handleUpdate={updateEntries} />
+      <Search update={updateEntries} />
       <Entries entries={entries} />
     </>
   );
