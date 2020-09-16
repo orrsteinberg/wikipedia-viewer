@@ -21,8 +21,8 @@ const App = () => {
     axios
       .get(baseUrl, { params })
       .then((res) => {
-        setEntries(res.data);
-        console.log(res.data);
+        setEntries(res.data.query.search);
+        console.log(res.data.query.search);
       })
       .catch((err) => console.log(err));
   };
