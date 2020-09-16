@@ -13,8 +13,8 @@ const Header = () => {
       <Container>
         <HeaderWrapper>
           <Logo />
-          <HeaderTitle />
-          <HeaderSubtitle />
+          <HeaderTitle>Wikipedia Viewer</HeaderTitle>
+          <HeaderSubtitle>What are you interseted in?</HeaderSubtitle>
         </HeaderWrapper>
       </Container>
     </header>

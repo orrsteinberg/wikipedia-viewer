@@ -8,8 +8,10 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const Logo = styled(FaWikipediaW)`
+  display: inline-block;
   border-bottom: 3px solid #e64922;
-  padding-bottom: 5px;
+  font-size: 30px;
+  padding: 5px 0;
 `;
 
 export const HeaderTitle = styled.h1`
@@ -17,10 +19,14 @@ export const HeaderTitle = styled.h1`
   font-weight: 700;
   font-size: 3rem;
   letter-spacing: -2px;
+  line-height: 1.2;
 `;
 
 export const HeaderSubtitle = styled.h2`
   margin-top: 5px;
+  font-weight: 400;
+  font-size: 2rem;
   letter-spacing: 3px;
+  line-height: 1.2;
   color: #dfdfdf;
 `;
