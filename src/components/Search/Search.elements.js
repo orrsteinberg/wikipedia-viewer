@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Container } from "../../globalStyles";
 
 export const SearchContainer = styled(Container)`
+  flex-grow: 1;
   text-align: center;
   margin-bottom: 30px;
 `;
@@ -15,6 +16,7 @@ export const SearchForm = styled.form`
   border-bottom: 12px solid #eee;
   max-width: 960px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 `;

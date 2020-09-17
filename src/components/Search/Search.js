@@ -19,33 +19,26 @@ const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
     if (typeof query !== "string" || query.trim() === "") {
       return;
     }
-
-    try {
-      fetchEntries(query);
-    } catch (err) {
-      setErrorMessage(err.message);
-    }
+    fetchEntries(query);
   };
 
   return (
-    <section>
-      <SearchContainer>
-        <SearchForm onSubmit={handleSubmit}>
-          <SearchInput
-            name="search-input"
-            value={query}
-            onChange={handleInputChange}
-            placeholder="Type to search..."
-          />
-          <SearchButton name="search-button">
-            <FaSearch />
-          </SearchButton>
-        </SearchForm>
-        <RandomArticleButton href={fetchRandom} target="_blank">
-          Random Article
-        </RandomArticleButton>
-      </SearchContainer>
-    </section>
+    <SearchContainer>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchInput
+          name="search-input"
+          value={query}
+          onChange={handleInputChange}
+          placeholder="Type to search..."
+        />
+        <SearchButton name="search-button">
+          <FaSearch />
+        </SearchButton>
+      </SearchForm>
+      <RandomArticleButton href={fetchRandom} target="_blank">
+        Random Article
+      </RandomArticleButton>
+    </SearchContainer>
   );
 };
 
