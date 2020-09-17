@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         overflow-x: hidden;
-        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
         background-color: #273c72;
         color: #333;
         font-size: 1rem;
