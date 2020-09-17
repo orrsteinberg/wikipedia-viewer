@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Header, Search, Entries, Error, Loading } from "./components";
-import { GlobalStyle } from "./globalStyles.js";
+import { Header, Search, Entries, Error, Loading, Footer } from "./components";
+import { GlobalStyle, MainContainer } from "./globalStyles.js";
 
 const App = () => {
   const [entries, setEntries] = useState(null);
@@ -43,15 +43,18 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header />
-      <Search
-        fetchEntries={fetchEntries}
-        fetchRandom={fetchRandom}
-        setErrorMessage={setError}
-      />
-      {loading ? <Loading /> : null}
-      {entries ? <Entries entries={entries} /> : null}
-      {error ? <Error message={error} /> : null}
+      <MainContainer>
+        <Header />
+        <Search
+          fetchEntries={fetchEntries}
+          fetchRandom={fetchRandom}
+          setErrorMessage={setError}
+        />
+        {loading ? <Loading /> : null}
+        {entries ? <Entries entries={entries} /> : null}
+        {error ? <Error message={error} /> : null}
+        <Footer />
+      </MainContainer>
     </>
   );
 };

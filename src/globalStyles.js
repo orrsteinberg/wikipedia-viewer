@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        overflow-x: hidden;
         font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         background-color: #273c72;
         color: #333;
@@ -17,9 +18,14 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+`;
+
+export const MainContainer = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 `;
