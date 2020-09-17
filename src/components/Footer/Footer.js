@@ -1,11 +1,10 @@
 import React from "react";
-import { Container } from "../../globalStyles";
 import { FooterWrapper, GithubIcon } from "./Footer.elements";
 
 const Footer = () => {
   return (
     <FooterWrapper>
-      <a href="https://www.github.com" target="_blank">
+      <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">
         <GithubIcon />
       </a>
     </FooterWrapper>
