@@ -1,13 +1,8 @@
 import React from "react";
-import { Container } from "../../globalStyles";
 import { ErrorText } from "./Error.elements";
 
 const Error = ({ message }) => {
-  return (
-    <Container>
-      <ErrorText>{message}</ErrorText>
-    </Container>
-  );
+  return <ErrorText>{message}</ErrorText>;
 };
 
 export default Error;
