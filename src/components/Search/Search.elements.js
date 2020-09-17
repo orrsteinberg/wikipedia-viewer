@@ -11,23 +11,34 @@ export const SearchForm = styled.form`
   margin: 20px auto 30px auto;
   background-color: #fff;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   border-radius: 20px;
   border-bottom: 12px solid #eee;
   max-width: 960px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (min-width: 690px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+  }
 `;
 
 export const SearchInput = styled.input`
   padding: 10px 20px;
-  margin-right: 15px;
   max-width: 300px;
   border: 2px solid #eee;
   border-radius: 20px;
   font-size: 1.2rem;
+  margin-bottom: 20px;
+
+  @media screen and (min-width: 690px) {
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
 `;
 
 export const SearchButton = styled.button`
