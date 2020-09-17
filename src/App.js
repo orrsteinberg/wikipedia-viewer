@@ -5,7 +5,7 @@ import { GlobalStyle } from "./globalStyles.js";
 
 const App = () => {
   const [entries, setEntries] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchEntries = (query) => {
@@ -26,10 +26,15 @@ const App = () => {
       .get(baseUrl, { params })
       .then(({ data }) => {
         setLoading(false);
+        setError(null);
+        if (data.query.search.length === 0) {
+          setError("No results found");
+          return;
+        }
         setEntries(data.query.search);
       })
       .catch(() => {
-        throw new Error("Oops! Something went wrong");
+        setError("Oops! Something went wrong");
       });
   };
 
