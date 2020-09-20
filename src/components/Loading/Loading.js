@@ -1,7 +1,7 @@
 import React from "react";
 import { LoadingIcon, LoadingText, LoadingContainer } from "./Loading.elements";
 
-const Loading = ({ message }) => {
+const Loading = () => {
   return (
     <LoadingContainer>
       <LoadingIcon />
