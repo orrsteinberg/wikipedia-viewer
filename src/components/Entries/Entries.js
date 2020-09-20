@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   EntriesContainer,
   Card,
@@ -39,6 +40,16 @@ const Entries = ({ entries }) => {
       </EntriesContainer>
     </main>
   );
+};
+
+Entries.propTypes = {
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      pageid: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      snippet: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Entries;
