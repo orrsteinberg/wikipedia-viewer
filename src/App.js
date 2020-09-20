@@ -10,6 +10,7 @@ const App = () => {
 
   const fetchEntries = (query) => {
     setEntries(null);
+    setError(null);
     setLoading(true);
 
     const baseUrl = "https://en.wikipedia.org//w/api.php";
@@ -26,7 +27,6 @@ const App = () => {
       .get(baseUrl, { params })
       .then(({ data }) => {
         setLoading(false);
-        setError(null);
         if (data.query.search.length === 0) {
           setError("No results found");
           return;
@@ -50,9 +50,9 @@ const App = () => {
           fetchRandom={fetchRandom}
           setErrorMessage={setError}
         />
-        {loading ? <Loading /> : null}
-        {entries ? <Entries entries={entries} /> : null}
-        {error ? <Error message={error} /> : null}
+        {loading && <Loading />}
+        {entries && <Entries entries={entries} />}
+        {error && <Error message={error} />}
         <Footer />
       </MainContainer>
     </>
