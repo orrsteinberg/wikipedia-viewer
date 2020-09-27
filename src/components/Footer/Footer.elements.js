@@ -5,12 +5,17 @@ export const FooterWrapper = styled.footer`
   margin-top: 40px;
   padding-top: 10px;
   background: #fff;
-  border-left: 8px solid #e64922;
-  border-right: 8px solid #7f0de9;
+  border-left: 8px solid #eee;
+  border-right: 8px solid #eee;
   text-align: center;
 `;
 
 export const GithubIcon = styled(FaGithub)`
-  font-size: 30px;
+  font-size: 35px;
+  transition: all 0.2s ease-in;
   color: #333;
+
+  &:hover {
+    color: #222;
+  }
 `;
