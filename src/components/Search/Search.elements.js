@@ -59,10 +59,17 @@ export const RandomArticleButton = styled.a`
   text-align: center;
   text-decoration: none;
   padding: 12px 12px;
-  background-color: #13a360;
-  border: 0;
-  border-radius: 5px;
-  cursor: pointer;
+  //background-color: #fff;
   color: #fff;
-  transition: background-color 0.3s ease;
+  //border: 0;
+  //border-radius: 5px;
+  border-bottom: 3px dashed #13a360;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    //color: #eee;
+    border-bottom: 3px dashed #22e6cc;
+  }
 `;

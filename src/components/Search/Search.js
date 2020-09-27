@@ -36,7 +36,10 @@ const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
         </SearchButton>
       </SearchForm>
       <RandomArticleButton href={fetchRandom} target="_blank">
-        Random Article
+        Random Article{"  "}
+        <span role="img" aria-label="sparkles">
+          ✨
+        </span>
       </RandomArticleButton>
     </SearchContainer>
   );
