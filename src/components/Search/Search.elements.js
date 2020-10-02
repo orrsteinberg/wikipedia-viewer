@@ -7,7 +7,7 @@ export const SearchContainer = styled(Container)`
   margin-bottom: 30px;
 `;
 
-export const SearchForm = styled.form`
+export const SearchArea = styled.div`
   margin: 20px auto 30px auto;
   background-color: #fff;
   padding-top: 30px;
@@ -15,6 +15,10 @@ export const SearchForm = styled.form`
   border-radius: 20px;
   border-bottom: 12px solid #eee;
   max-width: 960px;
+  min-height: 125px;
+`;
+
+export const SearchForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +27,6 @@ export const SearchForm = styled.form`
   @media screen and (min-width: 690px) {
     flex-direction: row;
     flex-wrap: wrap;
-    padding-bottom: 30px;
   }
 `;
 
