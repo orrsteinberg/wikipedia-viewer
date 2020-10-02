@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
+  SearchArea,
   SearchForm,
   SearchInput,
   SearchButton,
@@ -34,24 +35,26 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
   return (
     <SearchContainer>
-      <SearchForm onSubmit={handleSubmit}>
-        <SearchInput
-          name="search-input"
-          value={query}
-          onChange={handleInputChange}
-          placeholder="Type to search..."
-        />
-        <SearchButton name="search-button">
-          <FaSearch />
-        </SearchButton>
-      </SearchForm>
-      {searchHistory.length > 0 && (
-        <SearchHistory
-          searchHistory={searchHistory}
-          updateSearchHistory={setSearchHistory}
-          searchFromHistory={searchFromHistory}
-        />
-      )}
+      <SearchArea>
+        <SearchForm onSubmit={handleSubmit}>
+          <SearchInput
+            name="search-input"
+            value={query}
+            onChange={handleInputChange}
+            placeholder="Type to search..."
+          />
+          <SearchButton name="search-button">
+            <FaSearch />
+          </SearchButton>
+        </SearchForm>
+        {searchHistory.length > 0 && (
+          <SearchHistory
+            searchHistory={searchHistory}
+            updateSearchHistory={setSearchHistory}
+            searchFromHistory={searchFromHistory}
+          />
+        )}
+      </SearchArea>
       <RandomArticleButton href={fetchRandomUrl} target="_blank">
         Random Article{"  "}
         <span role="img" aria-label="sparkles">
