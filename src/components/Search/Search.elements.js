@@ -34,6 +34,11 @@ export const SearchInput = styled.input`
   border-radius: 20px;
   font-size: 1.2rem;
   margin-bottom: 20px;
+  transition: all 0.2s ease-out;
+
+  &:focus {
+    border: 2px solid #e64922;
+  }
 
   @media screen and (min-width: 690px) {
     margin-right: 15px;
