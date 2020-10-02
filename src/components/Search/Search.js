@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+
+import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
   SearchForm,
@@ -8,19 +10,27 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
+const Search = ({ fetchEntries, setErrorMessage }) => {
   const [query, setQuery] = useState("");
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const handleInputChange = ({ target }) => setQuery(target.value);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (typeof query !== "string" || query.trim() === "") {
-      return;
-    }
+    if (typeof query !== "string" || query.trim() === "") return;
+
+    setSearchHistory(Array.from(new Set([...searchHistory, query])));
     fetchEntries(query);
   };
+
+  const searchFromHistory = (item) => {
+    setQuery(item);
+    fetchEntries(query);
+  };
+
+  const fetchRandomUrl = "https://en.wikipedia.org/wiki/Special:Random";
 
   return (
     <SearchContainer>
@@ -35,7 +45,14 @@ const Search = ({ fetchEntries, fetchRandom, setErrorMessage }) => {
           <FaSearch />
         </SearchButton>
       </SearchForm>
-      <RandomArticleButton href={fetchRandom} target="_blank">
+      {searchHistory.length > 0 && (
+        <SearchHistory
+          searchHistory={searchHistory}
+          updateSearchHistory={setSearchHistory}
+          searchFromHistory={searchFromHistory}
+        />
+      )}
+      <RandomArticleButton href={fetchRandomUrl} target="_blank">
         Random Article{"  "}
         <span role="img" aria-label="sparkles">
           ✨
