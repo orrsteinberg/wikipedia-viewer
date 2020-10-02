@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-
-const SearchHistoryButton = ({ handleClick, showList }) => {
-  return (
-    <button onClick={handleClick} style={{ display: "block" }}>
-      Search History {showList ? "X" : null}
-    </button>
-  );
-};
+import { FaPlus, FaMinus } from "react-icons/fa";
+import {
+  SearchHistoryContainer,
+  SearchHistoryButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ClearHistoryButton,
+} from "./SearchHistory.elements";
 
 const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
   const clearHistory = () => updateSearchHistory([]);
@@ -17,17 +19,21 @@ const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
   };
 
   return (
-    <ul>
+    <List>
       {searchHistory.map((item) => (
-        <li key={item} style={{ color: "#fff" }}>
-          <button onClick={() => search(item)}>{item}</button>{" "}
+        <ListItem key={item}>
+          <ListItemText onClick={() => search(item)}>
+            <ListItemIcon /> {item}
+          </ListItemText>
           <button onClick={() => deleteItem(item)}>X</button>
-        </li>
+        </ListItem>
       ))}
-      <li>
-        <button onClick={clearHistory}>CLEAR HISTORY</button>
-      </li>
-    </ul>
+      <ListItem>
+        <ClearHistoryButton onClick={clearHistory}>
+          CLEAR HISTORY
+        </ClearHistoryButton>
+      </ListItem>
+    </List>
   );
 };
 
@@ -46,8 +52,10 @@ const SearchHistory = ({
   };
 
   return (
-    <>
-      <SearchHistoryButton showList={showList} handleClick={toggleList} />
+    <SearchHistoryContainer>
+      <SearchHistoryButton onClick={toggleList} active={showList}>
+        {showList ? <FaMinus /> : <FaPlus />} Search History
+      </SearchHistoryButton>
       {showList && (
         <SearchHistoryList
           searchHistory={searchHistory}
@@ -55,7 +63,7 @@ const SearchHistory = ({
           search={search}
         />
       )}
-    </>
+    </SearchHistoryContainer>
   );
 };
 

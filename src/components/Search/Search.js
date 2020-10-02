@@ -22,11 +22,16 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
     if (typeof query !== "string" || query.trim() === "") return;
 
-    setSearchHistory(Array.from(new Set([...searchHistory, query])));
+    // Add query to search history and remove duplicates
+    setSearchHistory(Array.from(new Set([query, ...searchHistory])));
     fetchEntries(query);
   };
 
   const searchFromHistory = (item) => {
+    // Move item to the beginning of the array and remove duplicates
+    setSearchHistory(Array.from(new Set([item, ...searchHistory])));
+
+    // Update query and run search
     setQuery(item);
     fetchEntries(query);
   };
