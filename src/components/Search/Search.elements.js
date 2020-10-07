@@ -15,7 +15,7 @@ export const SearchArea = styled.div`
   border-radius: 20px;
   border-bottom: 12px solid #eee;
   max-width: 960px;
-  min-height: 142px;
+  min-height: 135px;
 `;
 
 export const SearchForm = styled.form`
