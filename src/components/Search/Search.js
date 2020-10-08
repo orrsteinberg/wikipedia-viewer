@@ -15,8 +15,6 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
   const [query, setQuery] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
 
-  const handleInputChange = ({ target }) => setQuery(target.value);
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -33,8 +31,10 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
     // Update query and run search
     setQuery(item);
-    fetchEntries(query);
+    fetchEntries(item);
   };
+
+  const handleInputChange = ({ target }) => setQuery(target.value);
 
   const fetchRandomUrl = "https://en.wikipedia.org/wiki/Special:Random";
 
