@@ -17,8 +17,7 @@ export const EntriesContainer = styled(Container)`
 
 export const Card = styled.article`
   padding: 15px 15px;
-  max-width: 30%;
-  min-width: 400px;
+  width: 400px;
   animation: ${rotateIn} 0.6s forwards;
 `;
 

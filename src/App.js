@@ -4,12 +4,12 @@ import { Header, Search, Entries, Error, Loading, Footer } from "./components";
 import { GlobalStyle, MainContainer } from "./globalStyles.js";
 
 const App = () => {
-  const [entries, setEntries] = useState(null);
+  const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchEntries = (query) => {
-    setEntries(null);
+    setEntries([]);
     setError(null);
     setLoading(true);
 
@@ -19,6 +19,7 @@ const App = () => {
       action: "query",
       list: "search",
       srsearch: query,
+      srlimit: 30,
       format: "json",
       origin: "*",
     };
@@ -33,25 +34,21 @@ const App = () => {
         }
         setEntries(data.query.search);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
         setError("Oops! Something went wrong");
       });
   };
-
-  const fetchRandom = "https://en.wikipedia.org/wiki/Special:Random";
 
   return (
     <>
       <GlobalStyle />
       <MainContainer>
         <Header />
-        <Search
-          fetchEntries={fetchEntries}
-          fetchRandom={fetchRandom}
-          setErrorMessage={setError}
-        />
+        <Search fetchEntries={fetchEntries} setErrorMessage={setError} />
         {loading && <Loading />}
-        {entries && <Entries entries={entries} />}
+          {entries.length > 0 && <Entries entries={entries} />}
         {error && <Error message={error} />}
         <Footer />
       </MainContainer>
