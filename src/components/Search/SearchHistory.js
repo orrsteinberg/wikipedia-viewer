@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 import {
   SearchHistoryContainer,
   SearchHistoryButton,
@@ -7,6 +7,7 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  ListItemDeleteButton,
   ClearHistoryButton,
 } from "./SearchHistory.elements";
 
@@ -25,7 +26,9 @@ const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
           <ListItemText onClick={() => search(item)}>
             <ListItemIcon /> {item}
           </ListItemText>
-          <button onClick={() => deleteItem(item)}>X</button>
+          <ListItemDeleteButton onClick={() => deleteItem(item)}>
+            <FaTrash />
+          </ListItemDeleteButton>
         </ListItem>
       ))}
       <ListItem>

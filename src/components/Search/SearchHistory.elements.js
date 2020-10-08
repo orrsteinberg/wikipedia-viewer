@@ -86,6 +86,15 @@ export const ListItemIcon = styled(FaSearch)`
   color: #eee;
 `;
 
+export const ListItemDeleteButton = styled.button`
+  background: none;
+border: none;
+padding: 5px
+  font-size: 20px;
+  color: #e83232;
+cursor: pointer;
+`;
+
 export const ClearHistoryButton = styled.button`
   width: 100%;
   background: #e83232;
@@ -95,6 +104,6 @@ export const ClearHistoryButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #e83243;
+    background: #e31e1e;
   }
 `;
