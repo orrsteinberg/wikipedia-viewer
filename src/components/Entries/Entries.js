@@ -15,7 +15,7 @@ const Entries = ({ entries }) => {
   return (
     <main>
       <EntriesContainer>
-        {entries.map((entry) => {
+        {Object.values(entries).map((entry) => {
           return (
             <Card key={entry.pageid}>
               <CardHeader>
@@ -43,13 +43,14 @@ const Entries = ({ entries }) => {
 };
 
 Entries.propTypes = {
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      pageid: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      snippet: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  entries: PropTypes.object.isRequired,
+  //entries: PropTypes.arrayOf(
+  //  PropTypes.shape({
+  //    pageid: PropTypes.number.isRequired,
+  //    title: PropTypes.string.isRequired,
+  //    snippet: PropTypes.string.isRequired,
+  //  })
+  //).isRequired,
 };
 
 export default Entries;

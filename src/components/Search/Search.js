@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
 import { RANDOM_ARTICLE_URL } from "../../constants.js";
@@ -12,7 +13,7 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries, setErrorMessage }) => {
+const Search = ({ fetchEntries, clearPreviousQuery }) => {
   const [query, setQuery] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
@@ -27,6 +28,9 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
     // Add query to search history and remove duplicates
     setSearchHistory(Array.from(new Set([query, ...searchHistory])));
+
+    // Clear previous query and run search
+    clearPreviousQuery();
     fetchEntries(query);
   };
 
@@ -35,6 +39,7 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
     setSearchHistory(Array.from(new Set([item, ...searchHistory])));
 
     // Update query and run search
+    clearPreviousQuery();
     setQuery(item);
     fetchEntries(item);
   };
@@ -72,6 +77,11 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
       </RandomArticleButton>
     </SearchContainer>
   );
+};
+
+Search.propTypes = {
+  fetchEntries: PropTypes.func.isRequired,
+  clearPreviousQuery: PropTypes.func.isRequired,
 };
 
 export default Search;

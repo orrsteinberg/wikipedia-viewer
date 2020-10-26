@@ -5,13 +5,18 @@ import { Header, Search, Entries, Error, Loading, Footer } from "./components";
 import { GlobalStyle, MainContainer } from "./globalStyles.js";
 
 const App = () => {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState({}); // Arange entries by ID for easy filtering
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [currentOffset, setOffset] = useState(0);
+  const [currentOffset, setCurrentOffset] = useState(0);
+
+  const clearPreviousQuery = () => {
+    setEntries({});
+    setCurrentOffset(0);
+  };
 
   const fetchEntries = (query) => {
-    setEntries([]);
+    // TODO: CHANGE THIS DEPENDING ON TYPE OF FETCH (FIRST OR MORE)
     setError(null);
     setLoading(true);
 
@@ -29,12 +34,30 @@ const App = () => {
       .get(BASE_URL, { params })
       .then(({ data }) => {
         setLoading(false);
-        setOffset(data.continue.sroffset);
+
         if (data.query.search.length === 0) {
           setError("No results found");
           return;
         }
-        setEntries(entries.concat(data.query.search));
+
+        // Update offsate (the point from which to keep fetching)
+        setCurrentOffset(data.continue.sroffset);
+
+        // Avoid adding duplicates
+        const entriesToAdd = data.query.search.reduce((obj, entry) => {
+          if (!entries[entry.pageid]) {
+            return {
+              ...obj,
+              [entry.pageid]: entry,
+            };
+          }
+          return obj;
+        }, {});
+
+        setEntries({
+          ...entries,
+          ...entriesToAdd,
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -48,9 +71,12 @@ const App = () => {
       <GlobalStyle />
       <MainContainer>
         <Header />
-        <Search fetchEntries={fetchEntries} setErrorMessage={setError} />
+        <Search
+          fetchEntries={fetchEntries}
+          clearPreviousQuery={clearPreviousQuery}
+        />
         {loading && <Loading />}
-        {entries.length > 0 && <Entries entries={entries} />}
+        {entries && <Entries entries={entries} />}
         {error && <Error message={error} />}
         <Footer />
       </MainContainer>
