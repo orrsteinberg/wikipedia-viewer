@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 
+import { RANDOM_ARTICLE_URL } from "../../constants.js";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
@@ -40,8 +41,6 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
   const handleInputChange = ({ target }) => setQuery(target.value);
 
-  const fetchRandomUrl = "https://en.wikipedia.org/wiki/Special:Random";
-
   return (
     <SearchContainer>
       <SearchArea>
@@ -65,7 +64,7 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
           />
         )}
       </SearchArea>
-      <RandomArticleButton href={fetchRandomUrl} target="_blank">
+      <RandomArticleButton href={RANDOM_ARTICLE_URL} target="_blank">
         Random Article{"  "}
         <span role="img" aria-label="sparkles">
           ✨
