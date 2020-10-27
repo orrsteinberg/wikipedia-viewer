@@ -13,7 +13,7 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries, clearPreviousQuery }) => {
+const Search = ({ fetchEntries }) => {
   const [query, setQuery] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
@@ -29,8 +29,6 @@ const Search = ({ fetchEntries, clearPreviousQuery }) => {
     // Add query to search history and remove duplicates
     setSearchHistory(Array.from(new Set([query, ...searchHistory])));
 
-    // Clear previous query and run search
-    clearPreviousQuery();
     fetchEntries(query);
   };
 
@@ -38,8 +36,7 @@ const Search = ({ fetchEntries, clearPreviousQuery }) => {
     // Move item to the beginning of the array and remove duplicates
     setSearchHistory(Array.from(new Set([item, ...searchHistory])));
 
-    // Update query and run search
-    clearPreviousQuery();
+    // Update query field value and run search
     setQuery(item);
     fetchEntries(item);
   };
@@ -81,7 +78,6 @@ const Search = ({ fetchEntries, clearPreviousQuery }) => {
 
 Search.propTypes = {
   fetchEntries: PropTypes.func.isRequired,
-  clearPreviousQuery: PropTypes.func.isRequired,
 };
 
 export default Search;

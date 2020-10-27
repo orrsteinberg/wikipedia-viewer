@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants.js";
+import { isEmpty, mergeEntries } from "./utils";
 import { Header, Search, Entries, Error, Loading, Footer } from "./components";
 import { GlobalStyle, MainContainer } from "./globalStyles.js";
 
@@ -8,24 +9,27 @@ const App = () => {
   const [entries, setEntries] = useState({}); // Arange entries by ID for easy filtering
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [currentQuery, setCurrentQuery] = useState("");
   const [currentOffset, setCurrentOffset] = useState(0);
 
-  const clearPreviousQuery = () => {
-    setEntries({});
-    setCurrentOffset(0);
-  };
-
-  const fetchEntries = (query) => {
-    // TODO: CHANGE THIS DEPENDING ON TYPE OF FETCH (FIRST OR MORE)
+  // Optional parameter for new queries
+  const fetchEntries = (newQuery) => {
     setError(null);
-    setLoading(true);
+
+    if (newQuery) {
+      setCurrentQuery(newQuery);
+      setLoading(true);
+    } else {
+      setLoadingMore(true);
+    }
 
     const params = {
       action: "query",
       list: "search",
-      srsearch: query,
+      srsearch: newQuery || currentQuery,
       srlimit: NUM_ENTRIES_TO_FETCH,
-      sroffset: currentOffset, // when more results are available, use this to continue
+      sroffset: newQuery ? 0 : currentOffset,
       format: "json",
       origin: "*",
     };
@@ -34,34 +38,23 @@ const App = () => {
       .get(BASE_URL, { params })
       .then(({ data }) => {
         setLoading(false);
+        setLoadingMore(false);
 
         if (data.query.search.length === 0) {
           setError("No results found");
           return;
         }
 
-        // Update offsate (the point from which to keep fetching)
+        // Add new entries and update offset (the point from which to keep fetching)
+        setEntries((currentEntries) =>
+          mergeEntries(data.query.search, newQuery ? {} : currentEntries)
+        );
         setCurrentOffset(data.continue.sroffset);
-
-        // Avoid adding duplicates
-        const entriesToAdd = data.query.search.reduce((obj, entry) => {
-          if (!entries[entry.pageid]) {
-            return {
-              ...obj,
-              [entry.pageid]: entry,
-            };
-          }
-          return obj;
-        }, {});
-
-        setEntries({
-          ...entries,
-          ...entriesToAdd,
-        });
       })
       .catch((err) => {
         console.error(err);
         setLoading(false);
+        setLoadingMore(false);
         setError("Oops! Something went wrong");
       });
   };
@@ -71,12 +64,12 @@ const App = () => {
       <GlobalStyle />
       <MainContainer>
         <Header />
-        <Search
-          fetchEntries={fetchEntries}
-          clearPreviousQuery={clearPreviousQuery}
-        />
+        <Search fetchEntries={fetchEntries} />
         {loading && <Loading />}
-        {entries && <Entries entries={entries} />}
+        {!isEmpty(entries) && (
+          <Entries entries={entries} fetchEntries={fetchEntries} />
+        )}
+        {loadingMore && <Loading more />}
         {error && <Error message={error} />}
         <Footer />
       </MainContainer>

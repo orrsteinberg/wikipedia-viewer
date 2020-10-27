@@ -11,7 +11,7 @@ import {
   EntryText,
 } from "./Entries.elements";
 
-const Entries = ({ entries }) => {
+const Entries = ({ entries, fetchEntries }) => {
   return (
     <main>
       <EntriesContainer>
@@ -38,19 +38,13 @@ const Entries = ({ entries }) => {
           );
         })}
       </EntriesContainer>
+        <button onClick={() => fetchEntries()}>Load more</button>
     </main>
   );
 };
 
 Entries.propTypes = {
   entries: PropTypes.object.isRequired,
-  //entries: PropTypes.arrayOf(
-  //  PropTypes.shape({
-  //    pageid: PropTypes.number.isRequired,
-  //    title: PropTypes.string.isRequired,
-  //    snippet: PropTypes.string.isRequired,
-  //  })
-  //).isRequired,
 };
 
 export default Entries;
