@@ -51,6 +51,7 @@ const Entries = ({ entries, fetchEntries }) => {
 
 Entries.propTypes = {
   entries: PropTypes.object.isRequired,
+  fetchEntries: PropTypes.func.isRequired
 };
 
 export default Entries;
