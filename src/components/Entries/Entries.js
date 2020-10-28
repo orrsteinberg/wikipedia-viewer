@@ -9,13 +9,15 @@ import {
   CardHeaderWikiIcon,
   EntryLink,
   EntryText,
+  LoadMore,
+  LoadMoreButton,
 } from "./Entries.elements";
 
-const Entries = ({ entries }) => {
+const Entries = ({ entries, fetchEntries }) => {
   return (
     <main>
       <EntriesContainer>
-        {entries.map((entry) => {
+        {Object.values(entries).map((entry) => {
           return (
             <Card key={entry.pageid}>
               <CardHeader>
@@ -37,19 +39,19 @@ const Entries = ({ entries }) => {
             </Card>
           );
         })}
+        <LoadMore>
+          <LoadMoreButton onClick={() => fetchEntries()}>
+            Load more
+          </LoadMoreButton>
+        </LoadMore>
       </EntriesContainer>
     </main>
   );
 };
 
 Entries.propTypes = {
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      pageid: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      snippet: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  entries: PropTypes.object.isRequired,
+  fetchEntries: PropTypes.func.isRequired
 };
 
 export default Entries;

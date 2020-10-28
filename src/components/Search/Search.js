@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
+import { RANDOM_ARTICLE_URL } from "../../constants.js";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
@@ -11,7 +13,7 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries, setErrorMessage }) => {
+const Search = ({ fetchEntries }) => {
   const [query, setQuery] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
@@ -26,6 +28,7 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
 
     // Add query to search history and remove duplicates
     setSearchHistory(Array.from(new Set([query, ...searchHistory])));
+
     fetchEntries(query);
   };
 
@@ -33,14 +36,12 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
     // Move item to the beginning of the array and remove duplicates
     setSearchHistory(Array.from(new Set([item, ...searchHistory])));
 
-    // Update query and run search
+    // Update query field value and run search
     setQuery(item);
     fetchEntries(item);
   };
 
   const handleInputChange = ({ target }) => setQuery(target.value);
-
-  const fetchRandomUrl = "https://en.wikipedia.org/wiki/Special:Random";
 
   return (
     <SearchContainer>
@@ -65,7 +66,7 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
           />
         )}
       </SearchArea>
-      <RandomArticleButton href={fetchRandomUrl} target="_blank">
+      <RandomArticleButton href={RANDOM_ARTICLE_URL} target="_blank">
         Random Article{"  "}
         <span role="img" aria-label="sparkles">
           ✨
@@ -73,6 +74,10 @@ const Search = ({ fetchEntries, setErrorMessage }) => {
       </RandomArticleButton>
     </SearchContainer>
   );
+};
+
+Search.propTypes = {
+  fetchEntries: PropTypes.func.isRequired,
 };
 
 export default Search;
