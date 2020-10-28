@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants.js";
 import { isEmpty, mergeEntries } from "./utils";
-import { Header, Search, Entries, Error, Loading, Footer } from "./components";
+import {
+  Header,
+  Search,
+  Entries,
+  Error,
+  Loading,
+  ScrollUpArrow,
+  Footer,
+} from "./components";
 import { GlobalStyle, MainContainer } from "./globalStyles.js";
 
 const App = () => {
@@ -41,7 +49,12 @@ const App = () => {
         setLoadingMore(false);
 
         if (data.query.search.length === 0) {
-          setError("No results found");
+          if (newQuery) {
+            setEntries({});
+            setError("No results found");
+          } else {
+            setError("No more entries to load");
+          }
           return;
         }
 
@@ -71,6 +84,7 @@ const App = () => {
         )}
         {loadingMore && <Loading more />}
         {error && <Error message={error} />}
+        <ScrollUpArrow />
         <Footer />
       </MainContainer>
     </>
