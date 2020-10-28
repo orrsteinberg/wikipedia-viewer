@@ -9,6 +9,8 @@ import {
   CardHeaderWikiIcon,
   EntryLink,
   EntryText,
+  LoadMore,
+  LoadMoreButton,
 } from "./Entries.elements";
 
 const Entries = ({ entries, fetchEntries }) => {
@@ -37,8 +39,12 @@ const Entries = ({ entries, fetchEntries }) => {
             </Card>
           );
         })}
+        <LoadMore>
+          <LoadMoreButton onClick={() => fetchEntries()}>
+            Load more
+          </LoadMoreButton>
+        </LoadMore>
       </EntriesContainer>
-        <button onClick={() => fetchEntries()}>Load more</button>
     </main>
   );
 };
