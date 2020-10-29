@@ -25,7 +25,9 @@ const App = () => {
   const fetchEntries = (newQuery) => {
     setError(null);
 
-    if (newQuery) {
+    if (newQuery && newQuery === currentQuery) {
+      return;
+    } else if (newQuery) {
       setCurrentQuery(newQuery);
       setLoading(true);
     } else {
