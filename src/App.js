@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants.js";
+import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants";
 import { isEmpty, mergeEntries } from "./utils";
 import {
   Header,
@@ -11,7 +11,7 @@ import {
   ScrollUpArrow,
   Footer,
 } from "./components";
-import { GlobalStyle, MainContainer } from "./globalStyles.js";
+import { GlobalStyle, MainContainer } from "./globalStyles";
 
 const App = () => {
   const [entries, setEntries] = useState({}); // Arange entries by ID for easy filtering

@@ -61,6 +61,10 @@ export const SearchButton = styled.button`
   &:hover {
     transform: scale(1.2);
   }
+
+  &:focus {
+    border-bottom: 2px solid #e64922;
+  }
 `;
 
 export const RandomArticleButton = styled.a`

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
-import { RANDOM_ARTICLE_URL } from "../../constants.js";
+import { RANDOM_ARTICLE_URL } from "../../constants";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
@@ -54,8 +54,8 @@ const Search = ({ fetchEntries }) => {
             placeholder="Type to search..."
             ref={inputFieldRef}
           />
-          <SearchButton name="search-button">
-            <FaSearch />
+          <SearchButton name="search-button" aria-label="search">
+            <FaSearch aria-hidden="true" focusable="false" />
           </SearchButton>
         </SearchForm>
         {searchHistory.length > 0 && (
