@@ -65,6 +65,9 @@ const App = () => {
     }
   };
 
+  const showEntries =
+    (status === "idle" || status === "fetchingMore") && !isEmpty(entries);
+
   return (
     <>
       <GlobalStyle />
@@ -72,9 +75,7 @@ const App = () => {
         <Header />
         <Search searchWiki={searchWiki} />
         {status === "fetching" && <Loading />}
-        {!isEmpty(entries) && (
-          <Entries entries={entries} searchMore={searchWiki} />
-        )}
+        {showEntries && <Entries entries={entries} searchMore={searchWiki} />}
         {status === "fetchingMore" && <Loading more />}
         {status === "error" && <Error message={error.message} />}
         <ScrollUpArrow />
