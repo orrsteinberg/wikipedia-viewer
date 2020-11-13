@@ -1,7 +1,7 @@
 export const initialState = {
-  status: "idle", // "idle" / "fetching" / "fetchingMore" / "error"
+  status: "idle", // "idle" | "fetching" | "fetchingMore" | "error"
   entries: {}, // { [entryId]: entry }
-  errorMessage: null, // { message: error.message }
+  error: null, // { message: error.message }
   currentQuery: "",
   currentOffset: 0,
 };
