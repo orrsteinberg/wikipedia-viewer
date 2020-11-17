@@ -13,7 +13,7 @@ import {
   RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ fetchEntries }) => {
+const Search = ({ searchWiki }) => {
   const [query, setQuery] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
@@ -29,7 +29,7 @@ const Search = ({ fetchEntries }) => {
     // Add query to search history and remove duplicates
     setSearchHistory(Array.from(new Set([query, ...searchHistory])));
 
-    fetchEntries(query);
+    searchWiki(query);
   };
 
   const searchFromHistory = (item) => {
@@ -38,7 +38,7 @@ const Search = ({ fetchEntries }) => {
 
     // Update query field value and run search
     setQuery(item);
-    fetchEntries(item);
+    searchWiki(item);
   };
 
   const handleInputChange = ({ target }) => setQuery(target.value);
@@ -77,7 +77,7 @@ const Search = ({ fetchEntries }) => {
 };
 
 Search.propTypes = {
-  fetchEntries: PropTypes.func.isRequired,
+  searchWiki: PropTypes.func.isRequired,
 };
 
 export default Search;

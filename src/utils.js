@@ -2,7 +2,7 @@
 export const isEmpty = (obj) => Object.keys(obj).length === 0;
 
 // Parse and merge new entries with current ones to avoid duplicates
-export const mergeEntries = (newEntries, currentEntries) => {
+export const mergeEntries = ({ currentEntries, newEntries }) => {
   return newEntries.reduce((obj, entry) => {
     if (!obj[`_${entry.pageid}`]) {
       return {

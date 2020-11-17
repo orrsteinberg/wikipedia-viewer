@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Entry from "./Entry";
 import { EntriesContainer, LoadMore, LoadMoreButton } from "./Entries.elements";
 
-const Entries = ({ entries, fetchEntries }) => {
+const Entries = ({ entries, searchMore }) => {
   return (
     <main>
       <EntriesContainer>
@@ -11,7 +11,7 @@ const Entries = ({ entries, fetchEntries }) => {
           <Entry key={entry.pageid} entry={entry} />
         ))}
         <LoadMore>
-          <LoadMoreButton onClick={() => fetchEntries()}>
+          <LoadMoreButton onClick={() => searchMore()}>
             Load more
           </LoadMoreButton>
         </LoadMore>
@@ -22,7 +22,7 @@ const Entries = ({ entries, fetchEntries }) => {
 
 Entries.propTypes = {
   entries: PropTypes.object.isRequired,
-  fetchEntries: PropTypes.func.isRequired,
+  searchMore: PropTypes.func.isRequired,
 };
 
 export default Entries;

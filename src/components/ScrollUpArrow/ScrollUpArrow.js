@@ -1,31 +1,32 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
-import { FaArrowCircleUp } from "react-icons/fa";
+import { MdKeyboardArrowUp } from "react-icons/md";
 
 const fadeIn = keyframes`
     0% { opacity: 0; }
   100% { opacity: 0.5; }
 `;
 
-const ArrowIcon = styled(FaArrowCircleUp)`
+const ArrowIcon = styled(MdKeyboardArrowUp)`
   position: fixed;
   font-size: 70px;
   bottom: 50px;
   right: 20px;
   z-index: 1000;
   cursor: pointer;
-  color: #13a360;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0px 0px 3px #555;
   animation: ${fadeIn} 0.3s;
 
   @media screen and (min-width: 690px) {
     font-size: 70px;
     bottom: 60px;
     right: 50px;
-    opacity: 0.5;
-    transition: opacity 0.3s;
+    transition: all 0.3s;
 
     &:hover {
-      opacity: 1;
+      transform: scale(1.1);
     }
   }
 `;

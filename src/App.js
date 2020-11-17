@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import axios from "axios";
 import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants";
+import { reducer, initialState, actions } from "./state";
 import { isEmpty, mergeEntries } from "./utils";
+import { GlobalStyle, MainContainer } from "./globalStyles";
 import {
   Header,
   Search,
@@ -11,27 +13,21 @@ import {
   ScrollUpArrow,
   Footer,
 } from "./components";
-import { GlobalStyle, MainContainer } from "./globalStyles";
 
 const App = () => {
-  const [entries, setEntries] = useState({}); // Arange entries by ID for easy filtering
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [currentQuery, setCurrentQuery] = useState("");
-  const [currentOffset, setCurrentOffset] = useState(0);
+  const [
+    { status, entries, error, currentQuery, currentOffset },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
-  // Optional parameter for new queries
-  const fetchEntries = (newQuery) => {
-    setError(null);
-
-    if (newQuery && newQuery === currentQuery) {
+  // Optional parameter for new queries, otherwise fetch the currentQuery value
+  const searchWiki = async (newQuery) => {
+    if (newQuery === currentQuery) {
       return;
     } else if (newQuery) {
-      setCurrentQuery(newQuery);
-      setLoading(true);
+      dispatch(actions.search(newQuery));
     } else {
-      setLoadingMore(true);
+      dispatch(actions.searchMore());
     }
 
     const params = {
@@ -44,48 +40,44 @@ const App = () => {
       origin: "*",
     };
 
-    axios
-      .get(BASE_URL, { params })
-      .then(({ data }) => {
-        setLoading(false);
-        setLoadingMore(false);
+    try {
+      const { data } = await axios.get(BASE_URL, { params });
 
-        if (data.query.search.length === 0) {
-          if (newQuery) {
-            setEntries({});
-            setError("No results found");
-          } else {
-            setError("No more entries to load");
-          }
-          return;
+      // If no results
+      if (data.query.search.length === 0) {
+        if (newQuery) {
+          dispatch(actions.clearEntries());
+          dispatch(actions.setError("No results found"));
+        } else {
+          dispatch(actions.setError("No more entries to load"));
         }
+        return;
+      }
 
-        // Add new entries and update offset (the point from which to keep fetching)
-        setEntries((currentEntries) =>
-          mergeEntries(data.query.search, newQuery ? {} : currentEntries)
-        );
-        setCurrentOffset(data.continue.sroffset);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-        setLoadingMore(false);
-        setError("Oops! Something went wrong");
+      // Update entries and current offset (the point from which to keep fetching)
+      const mergedEntries = mergeEntries({
+        currentEntries: newQuery ? {} : entries,
+        newEntries: data.query.search,
       });
+      dispatch(actions.updateEntries(mergedEntries, data.continue.sroffset));
+    } catch (err) {
+      dispatch(actions.setError("Oops! Something went wrong"));
+    }
   };
+
+  const showEntries =
+    (status === "idle" || status === "fetchingMore") && !isEmpty(entries);
 
   return (
     <>
       <GlobalStyle />
       <MainContainer>
         <Header />
-        <Search fetchEntries={fetchEntries} />
-        {loading && <Loading />}
-        {!isEmpty(entries) && (
-          <Entries entries={entries} fetchEntries={fetchEntries} />
-        )}
-        {loadingMore && <Loading more />}
-        {error && <Error message={error} />}
+        <Search searchWiki={searchWiki} />
+        {status === "fetching" && <Loading />}
+        {showEntries && <Entries entries={entries} searchMore={searchWiki} />}
+        {status === "fetchingMore" && <Loading more />}
+        {status === "error" && <Error message={error.message} />}
         <ScrollUpArrow />
         <Footer />
       </MainContainer>
