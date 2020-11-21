@@ -22,13 +22,18 @@ export const LoadMoreButton = styled.button`
   padding: 12px 12px;
   margin-left: auto;
   border: 0;
-  background-color: #e64922;
+  background-color: #12255b;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1.3rem;
   color: #fff;
-  transition: background-color 0.3s ease;
+  border-bottom: 4px solid #fff;
 
   &:hover {
-    background-color: #13a360;
+    background-color: #0e2379;
+  }
+
+  @media screen and (min-width: 690px) {
+    font-size: 1rem;
   }
 `;

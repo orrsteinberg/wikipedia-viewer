@@ -12,7 +12,7 @@ const Header = () => {
     <header>
       <Container>
         <HeaderWrapper>
-          <Logo />
+          <Logo aria-label="Wikipedia Logo" />
           <HeaderTitle>Wikipedia Viewer</HeaderTitle>
           <HeaderSubtitle>What are you interested in?</HeaderSubtitle>
         </HeaderWrapper>

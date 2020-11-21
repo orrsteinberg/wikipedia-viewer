@@ -46,7 +46,7 @@ const Search = ({ searchWiki }) => {
   return (
     <SearchContainer>
       <SearchArea>
-        <SearchForm onSubmit={handleSubmit}>
+        <SearchForm role="search" onSubmit={handleSubmit}>
           <SearchInput
             name="search-input"
             value={query}
@@ -54,7 +54,7 @@ const Search = ({ searchWiki }) => {
             placeholder="Type to search..."
             ref={inputFieldRef}
           />
-          <SearchButton name="search-button" aria-label="search">
+          <SearchButton name="search-button" aria-label="Search button">
             <FaSearch aria-hidden="true" focusable="false" />
           </SearchButton>
         </SearchForm>
@@ -68,7 +68,7 @@ const Search = ({ searchWiki }) => {
       </SearchArea>
       <RandomArticleButton href={RANDOM_ARTICLE_URL} target="_blank">
         Random Article{"  "}
-        <span role="img" aria-label="sparkles">
+        <span role="img" aria-hidden="true">
           ✨
         </span>
       </RandomArticleButton>
