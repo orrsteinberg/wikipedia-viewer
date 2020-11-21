@@ -35,7 +35,7 @@ export const SearchInput = styled.input`
   max-width: 300px;
   border: 2px solid #eee;
   border-radius: 20px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 20px;
   transition: all 0.2s ease-out;
 
@@ -46,6 +46,7 @@ export const SearchInput = styled.input`
   @media screen and (min-width: 690px) {
     margin-right: 15px;
     margin-bottom: 5px;
+    font-size: 1.3rem;
   }
 `;
 
@@ -55,7 +56,7 @@ export const SearchButton = styled.button`
   border: none;
   outline: none;
   color: #e64922;
-  font-size: 38px;
+  font-size: 3.2rem;
   transition: transform 0.2s ease;
 
   &:hover {
@@ -65,23 +66,23 @@ export const SearchButton = styled.button`
   &:focus {
     border-bottom: 2px solid #e64922;
   }
+
+  @media screen and (min-width: 690px) {
+    font-size: 2.6rem;
+  }
 `;
 
 export const RandomArticleButton = styled.a`
   text-align: center;
   text-decoration: none;
   padding: 12px 12px;
-  //background-color: #fff;
   color: #fff;
-  //border: 0;
-  //border-radius: 5px;
   border-bottom: 3px dashed #13a360;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
-    //color: #eee;
     border-bottom: 3px dashed #22e6cc;
   }
 `;

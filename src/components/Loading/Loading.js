@@ -9,7 +9,7 @@ const Loading = ({ more }) => {
     </LoadingContainer>
   ) : (
     <LoadingContainer>
-      <LoadingIcon />
+      <LoadingIcon aria-label="Loading" />
       <LoadingText>Searching...</LoadingText>
     </LoadingContainer>
   );
