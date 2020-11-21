@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
+
 import {
   SearchHistoryContainer,
   SearchHistoryButton,
@@ -23,11 +25,16 @@ const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
     <List>
       {searchHistory.map((item) => (
         <ListItem key={item}>
-          <ListItemText onClick={() => search(item)}>
-            <ListItemIcon /> {item}
+          <ListItemText
+            onClick={() => search(item)}
+            aria-label="Search history item"
+            tabIndex="0"
+            role="button"
+          >
+            <ListItemIcon aria-label="Search icon" /> {item}
           </ListItemText>
           <ListItemDeleteButton onClick={() => deleteItem(item)}>
-            <FaTrash />
+            <FaTrash aria-label="Trash icon" />
           </ListItemDeleteButton>
         </ListItem>
       ))}
@@ -57,7 +64,12 @@ const SearchHistory = ({
   return (
     <SearchHistoryContainer>
       <SearchHistoryButton onClick={toggleList} active={showList}>
-        {showList ? <FaMinus /> : <FaPlus />} Search History
+        {showList ? (
+          <FaMinus aria-label="Minus sign" />
+        ) : (
+          <FaPlus aria-label="Plus-sign" />
+        )}{" "}
+        Search History
       </SearchHistoryButton>
       {showList && (
         <SearchHistoryList
@@ -68,6 +80,12 @@ const SearchHistory = ({
       )}
     </SearchHistoryContainer>
   );
+};
+
+SearchHistory.propTypes = {
+  searchHistory: PropTypes.array.isRequired,
+  updateSearchHistory: PropTypes.func.isRequired,
+  searchFromHistory: PropTypes.func.isRequired,
 };
 
 export default SearchHistory;

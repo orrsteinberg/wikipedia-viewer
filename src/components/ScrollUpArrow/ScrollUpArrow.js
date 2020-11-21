@@ -50,6 +50,7 @@ const ScrollUpArrow = () => {
     showArrow && (
       <ArrowIcon
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-hidden="true"
       />
     )
   );

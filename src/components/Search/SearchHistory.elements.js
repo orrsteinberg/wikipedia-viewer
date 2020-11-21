@@ -14,12 +14,13 @@ export const SearchHistoryButton = styled.button`
   margin-bottom: 10px;
   background: none;
   border: none;
-  color: ${(props) => (props.active ? "#333" : "#13a360")};
+  color: ${(props) => (props.active ? "#333" : "#1d8253")};
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: all 0.2s ease-out;
 
   @media screen and (min-width: 690px) {
     margin-bottom: 0;
+    font-size: 1rem;
   }
 `;
 
@@ -75,9 +76,14 @@ export const ListItemText = styled.span`
   word-wrap: anywhere;
   margin-left: 5px;
   margin-right: 5px;
+  font-size: 1.1rem;
 
   &:hover {
     text-decoration: underline;
+  }
+
+  @media screen and (min-width: 690px) {
+    font-size: 1rem;
   }
 `;
 
@@ -88,22 +94,31 @@ export const ListItemIcon = styled(FaSearch)`
 
 export const ListItemDeleteButton = styled.button`
   background: none;
-border: none;
-padding: 5px
-  font-size: 20px;
+  border: none;
+  padding: 5px;
+  font-size: 1.2rem;
   color: #e83232;
-cursor: pointer;
+  cursor: pointer;
+
+  @media screen and (min-width: 690px) {
+    font-size: 1rem;
+  }
 `;
 
 export const ClearHistoryButton = styled.button`
   width: 100%;
-  background: #e83232;
+  background: #d21313;
   border: none;
   padding: 5px 10px;
   color: #fff;
+  font-size: 1.1rem;
   cursor: pointer;
 
   &:hover {
     background: #e31e1e;
+  }
+
+  @media screen and (min-width: 690px) {
+    font-size: 1rem;
   }
 `;

@@ -14,3 +14,10 @@ export const mergeEntries = ({ currentEntries, newEntries }) => {
     return obj;
   }, currentEntries);
 };
+
+// Check if the user is on a mobile device
+export const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+};
