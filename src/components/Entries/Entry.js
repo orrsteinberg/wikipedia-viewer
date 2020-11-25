@@ -6,13 +6,14 @@ import {
   CardBody,
   EntryTitle,
   CardHeaderWikiIcon,
-  EntryLink,
+  EntryTitleLink,
   EntryText,
+  ArticleLink,
 } from "./Entry.elements";
 
-const Entry = ({ entry, mobileDevice }) => {
+const Entry = ({ entry, isMobileUser }) => {
   // If user is on mobile, use the mobile Wikipedia website version
-  const articleUrl = mobileDevice
+  const articleUrl = isMobileUser
     ? `https://en.m.wikipedia.org/?curid=${entry.pageid}`
     : `https://en.wikipedia.org/?curid=${entry.pageid}`;
 
@@ -21,15 +22,18 @@ const Entry = ({ entry, mobileDevice }) => {
       <CardHeader>
         <CardHeaderWikiIcon aria-label="Wikipedia Logo" />
         <EntryTitle>
-          <EntryLink href={articleUrl} target="_blank">
+          <EntryTitleLink href={articleUrl} target="_blank">
             {entry.title}
-          </EntryLink>
+          </EntryTitleLink>
         </EntryTitle>
       </CardHeader>
       <CardBody>
         <EntryText
           dangerouslySetInnerHTML={{ __html: entry.snippet + "..." }}
         />
+        <ArticleLink href={articleUrl} target="_blank">
+          Visit article page &rarr;
+        </ArticleLink>
       </CardBody>
     </Card>
   );
@@ -37,7 +41,7 @@ const Entry = ({ entry, mobileDevice }) => {
 
 Entry.propTypes = {
   entry: PropTypes.object.isRequired,
-  mobileDevice: PropTypes.bool.isRequired,
+  isMobileUser: PropTypes.bool.isRequired,
 };
 
 export default Entry;
