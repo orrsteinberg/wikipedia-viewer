@@ -28,7 +28,7 @@ export const CardHeader = styled.div`
 export const CardBody = styled.div`
   letter-spacing: 1px;
   background-color: #fff;
-  padding: 10px 15px 30px 15px;
+  padding: 10px 15px 20px 15px;
   border-left: solid 5px #ccc;
   border-right: solid 5px #e64922;
   border-bottom-right-radius: 25px;
@@ -42,7 +42,7 @@ export const EntryTitle = styled.h3`
   font-weight: 400;
 `;
 
-export const EntryLink = styled.a`
+export const EntryTitleLink = styled.a`
   text-decoration: none;
   color: #007bff;
 
@@ -63,4 +63,12 @@ export const CardHeaderWikiIcon = styled(FaWikipediaW)`
   color: #747474;
   font-size: 34px;
   align-self: baseline;
+`;
+
+export const ArticleLink = styled.a`
+  background: none;
+  margin-top: 15px;
+  display: inline-block;
+  color: #007bff;
+  text-decoration: none;
 `;
