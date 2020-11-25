@@ -7,13 +7,13 @@ import Entry from "./Entry";
 
 const Entries = ({ entries, searchMore }) => {
   // Check if the user is on a mobile device to create appropriate entry links
-  const mobileDevice = isMobile();
+  const isMobileUser = isMobile();
 
   return (
     <main>
       <EntriesContainer>
         {Object.values(entries).map((entry) => (
-          <Entry key={entry.pageid} entry={entry} mobileDevice={mobileDevice} />
+          <Entry key={entry.pageid} entry={entry} isMobileUser={isMobileUser} />
         ))}
         <LoadMore>
           <LoadMoreButton onClick={() => searchMore()}>
