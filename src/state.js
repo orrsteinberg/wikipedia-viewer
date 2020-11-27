@@ -2,52 +2,63 @@ export const initialState = {
   status: "idle", // "idle" | "fetching" | "fetchingMore" | "error"
   entries: {}, // { [entryId]: entry }
   error: null, // { message: error.message }
-  currentQuery: "",
-  currentOffset: 0,
+  current: {
+    query: "",
+    offset: 0,
+  },
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case "SEARCH":
+    case "FETCH":
       return {
         ...state,
         status: "fetching",
-        currentQuery: action.payload,
+        current: {
+          ...state.current,
+          query: action.payload,
+        },
         error: null,
       };
 
-    case "SEARCH_MORE":
+    case "FETCH_MORE":
       return {
         ...state,
         status: "fetchingMore",
         error: null,
       };
 
-    case "UPDATE_ENTRIES":
-      return {
-        ...state,
-        status: "idle",
-        entries: action.payload.entries,
-        currentOffset: action.payload.currentOffset,
-      };
-
-    case "SET_ERROR":
+    case "NO_RESULTS":
       return {
         ...state,
         status: "error",
-        error: { message: action.payload },
-      };
-
-    case "CLEAR_ERROR":
-      return {
-        ...state,
-        error: null,
-      };
-
-    case "CLEAR_ENTRIES":
-      return {
-        ...state,
         entries: {},
+        error: { message: "No results found" },
+      };
+
+    case "NO_MORE_RESULTS":
+      return {
+        ...state,
+        status: "error",
+        error: { message: "No more entries to load" },
+      };
+
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        status: "idle",
+        entries: action.payload.updatedEntries,
+        current: {
+          ...state.current,
+          offset: action.payload.newOffset,
+        },
+      };
+
+    case "FETCH_ERROR":
+      return {
+        ...state,
+        status: "error",
+        error: { message: "Oops! Something went wrong" },
       };
 
     default:
@@ -56,13 +67,25 @@ export const reducer = (state, action) => {
 };
 
 export const actions = {
-  search: (query) => ({ type: "SEARCH", payload: query }),
-  searchMore: () => ({ type: "SEARCH_MORE" }),
-  updateEntries: (entries, currentOffset) => ({
-    type: "UPDATE_ENTRIES",
-    payload: { entries, currentOffset },
-  }),
-  setError: (message) => ({ type: "SET_ERROR", payload: message }),
-  clearError: () => ({ type: "CLEAR_ERROR" }),
-  clearEntries: () => ({ type: "CLEAR_ENTRIES" }),
+  fetch: (query) => {
+    return { type: "FETCH", payload: query };
+  },
+  fetchMore: () => {
+    return { type: "FETCH_MORE" };
+  },
+  noResults: () => {
+    return { type: "NO_RESULTS" };
+  },
+  noMoreResults: () => {
+    return { type: "NO_MORE_RESULTS" };
+  },
+  fetchSuccess: (updatedEntries, newOffset) => {
+    return {
+      type: "FETCH_SUCCESS",
+      payload: { updatedEntries, newOffset },
+    };
+  },
+  fetchError: () => {
+    return { type: "FETCH_ERROR" };
+  },
 };
