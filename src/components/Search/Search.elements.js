@@ -64,7 +64,7 @@ export const SearchButton = styled.button`
   }
 
   &:focus {
-    border-bottom: 2px solid #e64922;
+    border-bottom: 2px solid #eee;
   }
 
   @media screen and (min-width: 690px) {
