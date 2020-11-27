@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
@@ -18,23 +18,39 @@ const Search = ({ searchWiki }) => {
   const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
 
+  // Load search history from localStorage
+  useEffect(() => {
+    const localSearchHistory = window.localStorage.getItem("searchHistory");
+    if (localSearchHistory) {
+      setSearchHistory(JSON.parse(localSearchHistory));
+    }
+  }, []);
+
+  const updateHistory = (updatedHistory) => {
+    setSearchHistory(updatedHistory);
+    window.localStorage.setItem(
+      "searchHistory",
+      JSON.stringify(updatedHistory)
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    // If input is empty return
     if (typeof query !== "string" || query.trim() === "") return;
 
-    // Remove focus from input field
+    // Otherwise remove focus from input field
     inputFieldRef.current.blur();
 
     // Add query to search history and remove duplicates
-    setSearchHistory(Array.from(new Set([query, ...searchHistory])));
+    updateHistory(Array.from(new Set([query, ...searchHistory])));
 
     searchWiki(query);
   };
 
   const searchFromHistory = (item) => {
     // Move item to the beginning of the array and remove duplicates
-    setSearchHistory(Array.from(new Set([item, ...searchHistory])));
+    updateHistory(Array.from(new Set([item, ...searchHistory])));
 
     // Update query field value and run search
     setQuery(item);
@@ -60,9 +76,9 @@ const Search = ({ searchWiki }) => {
         </SearchForm>
         {searchHistory.length > 0 && (
           <SearchHistory
-            searchHistory={searchHistory}
-            updateSearchHistory={setSearchHistory}
+            history={searchHistory}
             searchFromHistory={searchFromHistory}
+            updateHistory={updateHistory}
           />
         )}
       </SearchArea>

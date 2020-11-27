@@ -13,17 +13,18 @@ import {
   ClearHistoryButton,
 } from "./SearchHistory.elements";
 
-const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
-  const clearHistory = () => updateSearchHistory([]);
+const SearchHistoryList = ({ history, updateHistory, search }) => {
+  const clearHistory = () => {
+    updateHistory([]);
+  };
 
   const deleteItem = (itemToDelete) => {
-    const updatedList = searchHistory.filter((item) => item !== itemToDelete);
-    updateSearchHistory(updatedList);
+    updateHistory(history.filter((item) => item !== itemToDelete));
   };
 
   return (
     <List>
-      {searchHistory.map((item) => (
+      {history.map((item) => (
         <ListItem key={item}>
           <ListItemText
             onClick={() => search(item)}
@@ -47,11 +48,7 @@ const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
   );
 };
 
-const SearchHistory = ({
-  searchHistory,
-  updateSearchHistory,
-  searchFromHistory,
-}) => {
+const SearchHistory = ({ history, searchFromHistory, updateHistory }) => {
   const [showList, setShowList] = useState(false);
 
   const toggleList = () => setShowList(!showList);
@@ -73,8 +70,8 @@ const SearchHistory = ({
       </SearchHistoryButton>
       {showList && (
         <SearchHistoryList
-          searchHistory={searchHistory}
-          updateSearchHistory={updateSearchHistory}
+          history={history}
+          updateHistory={updateHistory}
           search={search}
         />
       )}
@@ -83,9 +80,15 @@ const SearchHistory = ({
 };
 
 SearchHistory.propTypes = {
-  searchHistory: PropTypes.array.isRequired,
-  updateSearchHistory: PropTypes.func.isRequired,
+  history: PropTypes.array.isRequired,
   searchFromHistory: PropTypes.func.isRequired,
+  updateHistory: PropTypes.func.isRequired,
+};
+
+SearchHistoryList.propTypes = {
+  history: PropTypes.array.isRequired,
+  updateHistory: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
 };
 
 export default SearchHistory;
