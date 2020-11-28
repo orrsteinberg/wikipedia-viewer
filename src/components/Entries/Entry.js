@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+
+import { Tooltip } from "../../globalStyles";
 import {
   Card,
   CardHeader,
@@ -8,10 +10,14 @@ import {
   CardHeaderWikiIcon,
   EntryTitleLink,
   EntryText,
+  CardButtons,
   ArticleLink,
+  BookmarkStarIcon,
 } from "./Entry.elements";
 
 const Entry = ({ entry, isMobileUser }) => {
+  const [bookmarked, setBookmarked] = useState(false);
+
   // If user is on mobile, use the mobile Wikipedia website version
   const articleUrl = isMobileUser
     ? `https://en.m.wikipedia.org/?curid=${entry.pageid}`
@@ -31,9 +37,20 @@ const Entry = ({ entry, isMobileUser }) => {
         <EntryText
           dangerouslySetInnerHTML={{ __html: entry.snippet + "..." }}
         />
-        <ArticleLink href={articleUrl} target="_blank">
-          Visit article page &rarr;
-        </ArticleLink>
+        <CardButtons>
+          <ArticleLink href={articleUrl} target="_blank">
+            Visit article page &rarr;
+          </ArticleLink>
+          <Tooltip data-text="Bookmark">
+            <BookmarkStarIcon
+              role="button"
+              aria-label="Bookmark Button"
+              tabIndex="0"
+              $bookmarked={bookmarked}
+              onClick={() => setBookmarked(!bookmarked)}
+            />
+          </Tooltip>
+        </CardButtons>
       </CardBody>
     </Card>
   );
