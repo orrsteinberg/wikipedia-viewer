@@ -29,3 +29,40 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
 `;
+
+export const Tooltip = styled.span`
+  position: relative;
+  font-size: 0.8rem;
+
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 100%;
+    margin-right: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+
+    display: none;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 100%;
+    border: 8px solid #333;
+    border-color: transparent transparent transparent #333;
+    display: none;
+  }
+
+  &:hover:before,
+  &:hover:after {
+    display: block;
+  }
+`;
