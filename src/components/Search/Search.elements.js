@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { Container } from "../../globalStyles";
 
 export const SearchContainer = styled(Container)`
-  flex-grow: 1;
   text-align: center;
-  margin-bottom: 30px;
 `;
 
 export const SearchArea = styled.div`
@@ -69,20 +67,5 @@ export const SearchButton = styled.button`
 
   @media screen and (min-width: 690px) {
     font-size: 2.6rem;
-  }
-`;
-
-export const RandomArticleButton = styled.a`
-  text-align: center;
-  text-decoration: none;
-  padding: 12px 12px;
-  color: #fff;
-  border-bottom: 3px dashed #13a360;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    border-bottom: 3px dashed #22e6cc;
   }
 `;

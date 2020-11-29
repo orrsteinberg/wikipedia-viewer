@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
-import { RANDOM_ARTICLE_URL } from "../../constants";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
@@ -10,7 +9,6 @@ import {
   SearchForm,
   SearchInput,
   SearchButton,
-  RandomArticleButton,
 } from "./Search.elements";
 
 const Search = ({ searchWiki }) => {
@@ -82,12 +80,6 @@ const Search = ({ searchWiki }) => {
           />
         )}
       </SearchArea>
-      <RandomArticleButton href={RANDOM_ARTICLE_URL} target="_blank">
-        Random Article{"  "}
-        <span role="img" aria-hidden="true">
-          ✨
-        </span>
-      </RandomArticleButton>
     </SearchContainer>
   );
 };
