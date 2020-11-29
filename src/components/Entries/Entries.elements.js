@@ -27,7 +27,6 @@ export const LoadMoreButton = styled.button`
   cursor: pointer;
   font-size: 1.3rem;
   color: #fff;
-  border-bottom: 4px solid #fff;
 
   &:hover {
     background-color: #0e2379;
