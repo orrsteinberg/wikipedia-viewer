@@ -1,10 +1,12 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState, useEffect } from "react";
 import axios from "axios";
-import { BASE_URL, NUM_ENTRIES_TO_FETCH } from "./constants";
+
+import { API_URL, NUM_ENTRIES_TO_FETCH } from "./constants";
 import { reducer, initialState, actions } from "./state";
 import { isEmpty, mergeEntries } from "./utils";
 import { GlobalStyle, MainContainer } from "./globalStyles";
 import {
+  Navbar,
   Header,
   Search,
   Entries,
@@ -20,8 +22,52 @@ const App = () => {
     initialState
   );
 
+  /*
+   Temporary state management for bookmarks
+   */
+  const [bookmarks, setBookmarks] = useState({});
+  const [view, setView] = useState("search"); // "search" | "bookmarks"
+
+  useEffect(() => {
+    // Load bookmarks from localStorage
+    const localBookmarks = window.localStorage.getItem("bookmarks");
+    if (localBookmarks) {
+      setBookmarks(JSON.parse(localBookmarks));
+    }
+  }, []);
+
+  const addBookmark = (entry) => {
+    const updatedBookmarks = mergeEntries({
+      currentEntries: bookmarks,
+      newEntries: [entry],
+    });
+    window.localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+    setBookmarks(updatedBookmarks);
+  };
+
+  const removeBookmark = (entryId) => {
+    // Use destructuring to assign the entry to a throwaway variable,
+    // then only keep the remaining entries
+    let { [`_${entryId}`]: omit, ...remainingBookmarks } = bookmarks;
+    if (!remainingBookmarks) {
+      remainingBookmarks = [];
+    }
+    window.localStorage.setItem(
+      "bookmarks",
+      JSON.stringify(remainingBookmarks)
+    );
+    setBookmarks(remainingBookmarks);
+  };
+
+  /*
+   * End
+   */
+
   // Optional parameter for new queries, otherwise fetch the current query value
   const searchWiki = async (newQuery = false) => {
+    // Redirect to search view to follow the search
+    setView("search");
+
     if (newQuery && newQuery === current.query) {
       return;
     } else if (newQuery) {
@@ -41,7 +87,7 @@ const App = () => {
     };
 
     try {
-      const { data } = await axios.get(BASE_URL, { params });
+      const { data } = await axios.get(API_URL, { params });
 
       // If no results were found, return 'no results'
       if (data.query.search.length === 0) {
@@ -71,10 +117,37 @@ const App = () => {
       <MainContainer>
         <Header />
         <Search searchWiki={searchWiki} />
-        {status === "fetching" && <Loading />}
-        {showEntries && <Entries entries={entries} searchMore={searchWiki} />}
-        {status === "fetchingMore" && <Loading more />}
-        {status === "error" && <Error message={error.message} />}
+        <Navbar
+          view={view}
+          setView={setView}
+          numBookmarks={Object.keys(bookmarks).length}
+        />
+        {view === "search" && (
+          <>
+            {status === "fetching" && <Loading />}
+            {showEntries && (
+              <Entries
+                entries={entries}
+                loadMore={searchWiki}
+                bookmarks={bookmarks}
+                addBookmark={addBookmark}
+                removeBookmark={removeBookmark}
+              />
+            )}
+            {status === "fetchingMore" && <Loading more />}
+            {status === "error" && <Error message={error.message} />}
+          </>
+        )}
+        {view === "bookmarks" && (
+          <>
+            <Entries
+              entries={bookmarks}
+              bookmarks={bookmarks}
+              addBookmark={addBookmark}
+              removeBookmark={removeBookmark}
+            />
+          </>
+        )}
         <ScrollUpArrow />
         <Footer />
       </MainContainer>

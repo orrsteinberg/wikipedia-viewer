@@ -5,21 +5,38 @@ import { isMobile } from "../../utils";
 import { EntriesContainer, LoadMore, LoadMoreButton } from "./Entries.elements";
 import Entry from "./Entry";
 
-const Entries = ({ entries, searchMore }) => {
+const Entries = ({
+  entries,
+  loadMore,
+  bookmarks,
+  addBookmark,
+  removeBookmark,
+}) => {
   // Check if the user is on a mobile device to create appropriate entry links
   const isMobileUser = isMobile();
+
+  const isEntryBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
 
   return (
     <main>
       <EntriesContainer>
         {Object.values(entries).map((entry) => (
-          <Entry key={entry.pageid} entry={entry} isMobileUser={isMobileUser} />
+          <Entry
+            key={entry.pageid}
+            entry={entry}
+            isMobileUser={isMobileUser}
+            isBookmarked={isEntryBookmarked(entry.pageid)}
+            addBookmark={addBookmark}
+            removeBookmark={removeBookmark}
+          />
         ))}
-        <LoadMore>
-          <LoadMoreButton onClick={() => searchMore()}>
-            Load more
-          </LoadMoreButton>
-        </LoadMore>
+        {loadMore && (
+          <LoadMore>
+            <LoadMoreButton onClick={() => loadMore()}>
+              Load more
+            </LoadMoreButton>
+          </LoadMore>
+        )}
       </EntriesContainer>
     </main>
   );
@@ -27,7 +44,10 @@ const Entries = ({ entries, searchMore }) => {
 
 Entries.propTypes = {
   entries: PropTypes.object.isRequired,
-  searchMore: PropTypes.func.isRequired,
+  bookmarks: PropTypes.object.isRequired,
+  addBookmark: PropTypes.func.isRequired,
+  removeBookmark: PropTypes.func.isRequired,
+  loadMore: PropTypes.func, // required for search results, not for bookmarks
 };
 
 export default Entries;

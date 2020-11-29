@@ -15,13 +15,29 @@ import {
   BookmarkStarIcon,
 } from "./Entry.elements";
 
-const Entry = ({ entry, isMobileUser }) => {
-  const [bookmarked, setBookmarked] = useState(false);
+const Entry = ({
+  entry,
+  isMobileUser,
+  isBookmarked,
+  addBookmark,
+  removeBookmark,
+}) => {
+  const [bookmarked, setBookmarked] = useState(isBookmarked);
 
   // If user is on mobile, use the mobile Wikipedia website version
   const articleUrl = isMobileUser
     ? `https://en.m.wikipedia.org/?curid=${entry.pageid}`
     : `https://en.wikipedia.org/?curid=${entry.pageid}`;
+
+  const handleClick = () => {
+    // Toggle current bookmark status and bookmarks update state
+    setBookmarked(!bookmarked);
+    if (bookmarked) {
+      removeBookmark(entry.pageid);
+    } else {
+      addBookmark(entry);
+    }
+  };
 
   return (
     <Card>
@@ -47,7 +63,7 @@ const Entry = ({ entry, isMobileUser }) => {
               aria-label="Bookmark Button"
               tabIndex="0"
               $bookmarked={bookmarked}
-              onClick={() => setBookmarked(!bookmarked)}
+              onClick={handleClick}
             />
           </Tooltip>
         </CardButtons>
@@ -59,6 +75,9 @@ const Entry = ({ entry, isMobileUser }) => {
 Entry.propTypes = {
   entry: PropTypes.object.isRequired,
   isMobileUser: PropTypes.bool.isRequired,
+  isBookmarked: PropTypes.bool.isRequired,
+  addBookmark: PropTypes.func.isRequired,
+  removeBookmark: PropTypes.func.isRequired,
 };
 
 export default Entry;
