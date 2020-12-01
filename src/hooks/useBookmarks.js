@@ -13,27 +13,31 @@ const useBookmarks = () => {
     }
   }, [setBookmarks]);
 
+  const updateBookmarks = (updatedBookmarks) => {
+    window.localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+    setBookmarks(updatedBookmarks);
+  };
+
   const addBookmark = (entry) => {
     const updatedBookmarks = mergeEntries({
       currentEntries: bookmarks,
       newEntries: [entry],
     });
-    window.localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
-    setBookmarks(updatedBookmarks);
+    updateBookmarks(updatedBookmarks);
   };
 
   const removeBookmark = (entryId) => {
     // Use destructuring to assign the selected entry to a throwaway variable,
     // then only keep the remaining entries (or the empty object)
     let { [`_${entryId}`]: throwaway, ...remainingBookmarks } = bookmarks;
-    window.localStorage.setItem(
-      "bookmarks",
-      JSON.stringify(remainingBookmarks)
-    );
-    setBookmarks(remainingBookmarks);
+    updateBookmarks(remainingBookmarks);
   };
 
-  return [bookmarks, addBookmark, removeBookmark];
+  const clearBookmarks = () => {
+    updateBookmarks({});
+  };
+
+  return [bookmarks, addBookmark, removeBookmark, clearBookmarks];
 };
 
 export default useBookmarks;
