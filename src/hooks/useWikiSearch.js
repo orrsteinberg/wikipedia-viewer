@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
-import { mergeEntries } from "../utils";
-import api from "../api";
+import { mergeEntries } from "../lib/utils";
+import api from "../lib/api";
 
 // Reducer function for managing the WikiSearch state
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { mergeEntries } from "../utils";
+import { mergeEntries } from "../lib/utils";
 
 const useBookmarks = () => {
   const [bookmarks, setBookmarks] = useState({});
