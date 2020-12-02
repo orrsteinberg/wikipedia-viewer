@@ -9,7 +9,7 @@ const fadeIn = keyframes`
 
 const ArrowIcon = styled(MdKeyboardArrowUp)`
   position: fixed;
-  font-size: 70px;
+  font-size: 65px;
   bottom: 50px;
   right: 20px;
   z-index: 1000;
@@ -20,9 +20,6 @@ const ArrowIcon = styled(MdKeyboardArrowUp)`
   animation: ${fadeIn} 0.3s;
 
   @media screen and (min-width: 690px) {
-    font-size: 70px;
-    bottom: 60px;
-    right: 50px;
     transition: all 0.3s;
 
     &:hover {

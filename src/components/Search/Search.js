@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 
-import { RANDOM_ARTICLE_URL } from "../../constants";
+import useSearchHistory from "../../hooks/useSearchHistory";
 import SearchHistory from "./SearchHistory";
 import {
   SearchContainer,
@@ -10,35 +10,37 @@ import {
   SearchForm,
   SearchInput,
   SearchButton,
-  RandomArticleButton,
 } from "./Search.elements";
 
-const Search = ({ searchWiki }) => {
+const Search = ({ search, changeView }) => {
   const [query, setQuery] = useState("");
-  const [searchHistory, setSearchHistory] = useState([]);
   const inputFieldRef = useRef();
+  const [
+    history,
+    pushToHistory,
+    deleteHistoryItem,
+    clearHistory,
+  ] = useSearchHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    // If input is empty return
     if (typeof query !== "string" || query.trim() === "") return;
 
-    // Remove focus from input field
+    // Otherwise proceed and run search
     inputFieldRef.current.blur();
-
-    // Add query to search history and remove duplicates
-    setSearchHistory(Array.from(new Set([query, ...searchHistory])));
-
-    searchWiki(query);
+    pushToHistory(query);
+    changeView("currentSearch");
+    search(query);
   };
 
   const searchFromHistory = (item) => {
-    // Move item to the beginning of the array and remove duplicates
-    setSearchHistory(Array.from(new Set([item, ...searchHistory])));
-
-    // Update query field value and run search
+    // Update query input value and run search
+    pushToHistory(item);
     setQuery(item);
-    searchWiki(item);
+    changeView("currentSearch");
+    search(item);
   };
 
   const handleInputChange = ({ target }) => setQuery(target.value);
@@ -58,26 +60,22 @@ const Search = ({ searchWiki }) => {
             <FaSearch aria-hidden="true" focusable="false" />
           </SearchButton>
         </SearchForm>
-        {searchHistory.length > 0 && (
+        {history.length > 0 && (
           <SearchHistory
-            searchHistory={searchHistory}
-            updateSearchHistory={setSearchHistory}
-            searchFromHistory={searchFromHistory}
+            history={history}
+            search={searchFromHistory}
+            deleteItem={deleteHistoryItem}
+            clearHistory={clearHistory}
           />
         )}
       </SearchArea>
-      <RandomArticleButton href={RANDOM_ARTICLE_URL} target="_blank">
-        Random Article{"  "}
-        <span role="img" aria-hidden="true">
-          ✨
-        </span>
-      </RandomArticleButton>
     </SearchContainer>
   );
 };
 
 Search.propTypes = {
-  searchWiki: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+  changeView: PropTypes.func.isRequired,
 };
 
 export default Search;

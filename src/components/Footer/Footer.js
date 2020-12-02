@@ -1,5 +1,6 @@
 import React from "react";
-import { GITHUB_URL } from "../../constants";
+
+import { GITHUB_URL } from "../../lib/constants";
 import { FooterWrapper, GithubIcon } from "./Footer.elements";
 
 const Footer = () => {

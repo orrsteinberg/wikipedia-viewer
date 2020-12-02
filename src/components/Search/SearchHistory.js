@@ -13,52 +13,44 @@ import {
   ClearHistoryButton,
 } from "./SearchHistory.elements";
 
-const SearchHistoryList = ({ searchHistory, updateSearchHistory, search }) => {
-  const clearHistory = () => updateSearchHistory([]);
-
-  const deleteItem = (itemToDelete) => {
-    const updatedList = searchHistory.filter((item) => item !== itemToDelete);
-    updateSearchHistory(updatedList);
-  };
-
-  return (
-    <List>
-      {searchHistory.map((item) => (
-        <ListItem key={item}>
-          <ListItemText
-            onClick={() => search(item)}
-            aria-label="Search history item"
-            tabIndex="0"
-            role="button"
-          >
-            <ListItemIcon aria-label="Search icon" /> {item}
-          </ListItemText>
-          <ListItemDeleteButton onClick={() => deleteItem(item)}>
-            <FaTrash aria-label="Trash icon" />
-          </ListItemDeleteButton>
-        </ListItem>
-      ))}
-      <ListItem>
-        <ClearHistoryButton onClick={clearHistory}>
-          CLEAR HISTORY
-        </ClearHistoryButton>
+const SearchHistoryList = ({
+  history,
+  handleSearchClick,
+  deleteItem,
+  clearHistory,
+}) => (
+  <List>
+    {history.map((item) => (
+      <ListItem key={item}>
+        <ListItemText
+          onClick={() => handleSearchClick(item)}
+          aria-label="Search history item"
+          tabIndex="0"
+          role="button"
+        >
+          <ListItemIcon aria-label="Search icon" /> {item}
+        </ListItemText>
+        <ListItemDeleteButton onClick={() => deleteItem(item)}>
+          <FaTrash aria-label="Trash icon" />
+        </ListItemDeleteButton>
       </ListItem>
-    </List>
-  );
-};
+    ))}
+    <ListItem>
+      <ClearHistoryButton onClick={clearHistory}>
+        CLEAR HISTORY
+      </ClearHistoryButton>
+    </ListItem>
+  </List>
+);
 
-const SearchHistory = ({
-  searchHistory,
-  updateSearchHistory,
-  searchFromHistory,
-}) => {
+const SearchHistory = ({ history, search, deleteItem, clearHistory }) => {
   const [showList, setShowList] = useState(false);
 
   const toggleList = () => setShowList(!showList);
 
-  const search = (item) => {
+  const handleSearchClick = (item) => {
     toggleList();
-    searchFromHistory(item);
+    search(item);
   };
 
   return (
@@ -73,9 +65,10 @@ const SearchHistory = ({
       </SearchHistoryButton>
       {showList && (
         <SearchHistoryList
-          searchHistory={searchHistory}
-          updateSearchHistory={updateSearchHistory}
-          search={search}
+          history={history}
+          deleteItem={deleteItem}
+          clearHistory={clearHistory}
+          handleSearchClick={handleSearchClick}
         />
       )}
     </SearchHistoryContainer>
@@ -83,9 +76,17 @@ const SearchHistory = ({
 };
 
 SearchHistory.propTypes = {
-  searchHistory: PropTypes.array.isRequired,
-  updateSearchHistory: PropTypes.func.isRequired,
-  searchFromHistory: PropTypes.func.isRequired,
+  history: PropTypes.array.isRequired,
+  search: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  clearHistory: PropTypes.func.isRequired,
+};
+
+SearchHistoryList.propTypes = {
+  history: PropTypes.array.isRequired,
+  handleSearchClick: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  clearHistory: PropTypes.func.isRequired,
 };
 
 export default SearchHistory;
