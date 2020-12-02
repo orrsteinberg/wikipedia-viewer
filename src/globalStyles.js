@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         overflow-x: hidden;
         font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-        background-color: #273c72;
+        background-color: #0d1a4f;
         color: #333;
         font-size: 1rem;
         line-height: 1.5;

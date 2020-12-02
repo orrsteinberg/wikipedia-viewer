@@ -27,9 +27,10 @@ export const LoadMoreButton = styled.button`
   cursor: pointer;
   font-size: 1.3rem;
   color: #fff;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: #0e2379;
+    filter: brightness(1.2);
   }
 
   @media screen and (min-width: 690px) {

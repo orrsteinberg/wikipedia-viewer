@@ -52,6 +52,11 @@ export const BackButton = styled.button`
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
 `;
 
 export const RandomArticleButton = styled.a`
@@ -86,9 +91,13 @@ export const BookmarksButton = styled.button`
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  /* border-bottom: 3px solid #fff; */
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
 `;
 
 export const StarIcon = styled(FaStar)`
