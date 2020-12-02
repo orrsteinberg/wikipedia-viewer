@@ -31,12 +31,13 @@ const Entry = ({
 
   const handleClick = () => {
     // Toggle current bookmark status and bookmarks update state
-    setBookmarked(!bookmarked);
     if (bookmarked) {
       removeBookmark(entry.pageid);
     } else {
       addBookmark(entry);
     }
+
+    setBookmarked(!bookmarked);
   };
 
   return (

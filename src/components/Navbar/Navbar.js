@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { RANDOM_URL_MOBILE, RANDOM_URL_DESKTOP } from "../../constants";
-import { isMobile } from "../../utils";
+import { RANDOM_URL_MOBILE, RANDOM_URL_DESKTOP } from "../../lib/constants";
+import { isMobile } from "../../lib/utils";
 import {
   NavContainer,
   Nav,
@@ -14,14 +14,14 @@ import {
   StarIcon,
 } from "./Navbar.elements";
 
-export const Navbar = ({ numBookmarks, view, setView }) => {
+export const Navbar = ({ numBookmarks, currentView, changeView }) => {
   return (
     <NavContainer>
       <Nav>
         <NavList>
           <NavListItem>
-            {view === "bookmarks" && (
-              <BackButton onClick={() => setView("search")}>
+            {currentView === "bookmarks" && (
+              <BackButton onClick={() => changeView("currentSearch")}>
                 &larr; Back to search results
               </BackButton>
             )}
@@ -31,15 +31,15 @@ export const Navbar = ({ numBookmarks, view, setView }) => {
               href={isMobile() ? RANDOM_URL_MOBILE : RANDOM_URL_DESKTOP}
               target="_blank"
             >
-              Random Article{"  "}
+              Random Article{" "}
               <span role="img" aria-hidden="true">
-                ✨
+                🔮
               </span>
             </RandomArticleButton>
           </NavListItem>
           <NavListItem>
-            {view === "search" && (
-              <BookmarksButton onClick={() => setView("bookmarks")}>
+            {currentView === "currentSearch" && (
+              <BookmarksButton onClick={() => changeView("bookmarks")}>
                 {numBookmarks} {numBookmarks === 1 ? "Bookmark" : "Bookmarks"}{" "}
                 <StarIcon />
               </BookmarksButton>
@@ -53,8 +53,8 @@ export const Navbar = ({ numBookmarks, view, setView }) => {
 
 Navbar.propTypes = {
   numBookmarks: PropTypes.number.isRequired,
-  view: PropTypes.string.isRequired,
-  setView: PropTypes.func.isRequired,
+  currentView: PropTypes.string.isRequired,
+  changeView: PropTypes.func.isRequired,
 };
 
 export default Navbar;

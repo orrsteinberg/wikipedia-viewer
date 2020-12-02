@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { isMobile } from "../../utils";
+import { isMobile } from "../../lib/utils";
 import { EntriesContainer, LoadMore, LoadMoreButton } from "./Entries.elements";
 import Entry from "./Entry";
 
 const Entries = ({
-  entries,
+  entriesToView,
   loadMore,
   bookmarks,
   addBookmark,
   removeBookmark,
 }) => {
-  // Check if the user is on a mobile device to create appropriate entry links
+  // Check if the user is on a mobile device to create appropriate wiki page links
   const isMobileUser = isMobile();
 
   const isEntryBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
@@ -20,7 +20,7 @@ const Entries = ({
   return (
     <main>
       <EntriesContainer>
-        {Object.values(entries).map((entry) => (
+        {Object.values(entriesToView).map((entry) => (
           <Entry
             key={entry.pageid}
             entry={entry}
@@ -43,7 +43,7 @@ const Entries = ({
 };
 
 Entries.propTypes = {
-  entries: PropTypes.object.isRequired,
+  entriesToView: PropTypes.object.isRequired,
   bookmarks: PropTypes.object.isRequired,
   addBookmark: PropTypes.func.isRequired,
   removeBookmark: PropTypes.func.isRequired,
