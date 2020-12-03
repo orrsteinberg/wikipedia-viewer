@@ -78,8 +78,10 @@ export const ListItemText = styled.span`
   margin-right: 5px;
   font-size: 1.1rem;
 
-  &:hover {
-    text-decoration: underline;
+  @media (hover: hover) {
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   @media screen and (min-width: 690px) {
@@ -114,8 +116,10 @@ export const ClearHistoryButton = styled.button`
   font-size: 1.1rem;
   cursor: pointer;
 
-  &:hover {
-    background: #e31e1e;
+  @media (hover: hover) {
+    &:hover {
+      background: #e31e1e;
+    }
   }
 
   @media screen and (min-width: 690px) {

@@ -46,9 +46,11 @@ export const EntryTitleLink = styled.a`
   text-decoration: none;
   color: #007bff;
 
-  &:hover {
-    color: #0056b3;
-    text-decoration: underline;
+  @media (hover: hover) {
+    &:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -86,8 +88,10 @@ export const BookmarkStarIcon = styled(FaStar)`
   cursor: pointer;
   transition: transform 0.15s ease-out;
 
-  &:hover {
-    color: #ffd700;
-    transform: scale(1.1);
+  @media (hover: hover) {
+    &:hover {
+      color: #ffd700;
+      transform: scale(1.1);
+    }
   }
 `;

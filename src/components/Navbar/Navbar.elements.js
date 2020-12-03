@@ -54,8 +54,10 @@ export const BackButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease;
 
-  &:hover {
-    filter: brightness(1.2);
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(1.2);
+    }
   }
 `;
 
@@ -72,8 +74,10 @@ export const RandomArticleButton = styled.a`
   cursor: pointer;
   transition: all 0.2s ease;
 
-  &:hover {
-    border-bottom: 3px dashed #22e6cc;
+  @media (hover: hover) {
+    &:hover {
+      border-bottom: 3px dashed #22e6cc;
+    }
   }
 
   @media screen and (min-width: 690px) {
@@ -95,8 +99,10 @@ export const BookmarksButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease;
 
-  &:hover {
-    filter: brightness(1.2);
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(1.2);
+    }
   }
 `;
 
