@@ -15,7 +15,9 @@ export const GithubIcon = styled(FaGithub)`
   transition: all 0.2s ease-in;
   color: #333;
 
-  &:hover {
-    color: #222;
+  @media (hover: hover) {
+    &:hover {
+      color: #222;
+    }
   }
 `;

@@ -57,8 +57,10 @@ export const SearchButton = styled.button`
   font-size: 3.2rem;
   transition: transform 0.2s ease;
 
-  &:hover {
-    transform: scale(1.2);
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   &:focus {

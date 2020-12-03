@@ -17,8 +17,10 @@ const ClearBookmarksButton = styled.button`
   font-size: 1.1rem;
   cursor: pointer;
 
-  &:hover {
-    background: #e31e1e;
+  @media (hover: hover) {
+    &:hover {
+      background: #e31e1e;
+    }
   }
 
   @media screen and (min-width: 690px) {

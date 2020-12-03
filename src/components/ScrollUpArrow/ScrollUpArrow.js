@@ -22,8 +22,10 @@ const ArrowIcon = styled(MdKeyboardArrowUp)`
   @media screen and (min-width: 690px) {
     transition: all 0.3s;
 
-    &:hover {
-      transform: scale(1.1);
+    @media (hover: hover) {
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 `;

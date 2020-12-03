@@ -61,8 +61,10 @@ export const Tooltip = styled.span`
     display: none;
   }
 
-  &:hover:before,
-  &:hover:after {
-    display: block;
+  @media (hover: hover) {
+    &:hover:before,
+    &:hover:after {
+      display: block;
+    }
   }
 `;
