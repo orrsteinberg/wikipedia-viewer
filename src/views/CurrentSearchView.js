@@ -14,8 +14,10 @@ const CurrentSearchView = ({
   removeBookmark,
 }) => {
   // Conditions for displaying the Entries component
-  const showEntries =
-    (status === "idle" || status === "fetchingMore") && !isEmpty(entriesToView);
+  const showEntries = status !== "fetching" && !isEmpty(entriesToView);
+
+  // Only pass a 'load more' function when appropriate
+  const loadMore = status === "error" ? null : searchForMore;
 
   return (
     <>
@@ -23,7 +25,7 @@ const CurrentSearchView = ({
       {showEntries && (
         <Entries
           entriesToView={entriesToView}
-          loadMore={searchForMore}
+          loadMore={loadMore}
           {...{ bookmarks, addBookmark, removeBookmark }}
         />
       )}
