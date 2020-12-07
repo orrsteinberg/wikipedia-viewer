@@ -87,11 +87,10 @@ const fetchError = () => ({ type: "FETCH_ERROR" });
 const clearEntries = () => ({ type: "CLEAR_ENTRIES" });
 
 // Custom hook
-
 const useWikiSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const wikiSearch = async (query, offset, fetchAction, noResultsAction) => {
+  const wikiSearch = async (query, offset, fetchAction) => {
     // dispatch either fetch(query) or fetchMore(currentQuery)
     // the argument is irrelevant to the fetchMore action creator...
     dispatch(fetchAction(query));
@@ -100,34 +99,38 @@ const useWikiSearch = () => {
       // ...but needs to be passed to the search API
       const { data } = await api.searchWikipedia(query, offset);
 
-      // If no results were found, return 'no results' or 'no more results'
+      // If no results were found, return 'no results'
       if (data.query.search.length === 0) {
-        return dispatch(noResultsAction());
+        return dispatch(noResults());
       }
 
       // Otherwise update entries and current offset (the point from which to keep fetching)
-      dispatch(fetchSuccess(data.query.search, data.continue.sroffset));
+      const newOffset = data.continue ? data.continue.sroffset : null;
+      dispatch(fetchSuccess(data.query.search, newOffset));
     } catch (err) {
       dispatch(fetchError());
     }
   };
 
+  // New search
   const search = async (query) => {
     if (query === state.currentQuery) {
       return;
     } else {
       dispatch(clearEntries());
-      return await wikiSearch(query, 0, fetch, noResults);
+      return await wikiSearch(query, 0, fetch);
     }
   };
 
+  // Fetch more entries
   const searchForMore = async () => {
-    return await wikiSearch(
-      state.currentQuery,
-      state.currentOffset,
-      fetchMore,
-      noMoreResults
-    );
+    // If the current offset is null then we've reached the end of the results
+    // in the previous search, and there are no more entries to fetch
+    if (state.currentOffset === null) {
+      return dispatch(noMoreResults());
+    }
+
+    return await wikiSearch(state.currentQuery, state.currentOffset, fetchMore);
   };
 
   return [state, search, searchForMore];
