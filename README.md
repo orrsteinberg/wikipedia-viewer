@@ -31,11 +31,11 @@ The app state is managed using custom hooks: `useWikiSearch`, `useBookmarks` and
 
 ## Installation
 
-```console
-git clone https://github.com/orrsteinberg/wikipedia-viewer.git
-cd wikipedia-viewer
-npm install
-npm start
+```sh
+$ git clone https://github.com/orrsteinberg/wikipedia-viewer.git
+$ cd wikipedia-viewer
+$ npm install
+$ npm start
 ```
 
 Visit `http://localhost:3000`.
