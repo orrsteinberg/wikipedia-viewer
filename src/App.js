@@ -15,23 +15,23 @@ const App = () => {
     clearBookmarks,
   ] = useBookmarks();
 
-  const renderCurrentView = () => {
-    if (view === "currentSearch") {
-      return (
-        <CurrentSearchView
-          entriesToView={entries}
-          {...{ status, error, searchForMore }}
-          {...{ bookmarks, addBookmark, removeBookmark }}
-        />
-      );
-    } else if (view === "bookmarks") {
-      return (
-        <BookmarksView
-          {...{ bookmarks, addBookmark, removeBookmark, clearBookmarks }}
-        />
-      );
-    }
-  };
+  let content;
+
+  if (view === "currentSearch") {
+    content = (
+      <CurrentSearchView
+        entriesToView={entries}
+        {...{ status, error, searchForMore }}
+        {...{ bookmarks, addBookmark, removeBookmark }}
+      />
+    );
+  } else if (view === "bookmarks") {
+    content = (
+      <BookmarksView
+        {...{ bookmarks, addBookmark, removeBookmark, clearBookmarks }}
+      />
+    );
+  }
 
   return (
     <>
@@ -44,7 +44,7 @@ const App = () => {
           changeView={setView}
           numBookmarks={Object.keys(bookmarks).length}
         />
-        {renderCurrentView()}
+        {content}
         <ScrollUpArrow />
         <Footer />
       </MainContainer>
