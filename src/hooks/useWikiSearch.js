@@ -114,7 +114,8 @@ const useWikiSearch = () => {
 
   // New search
   const search = async (query) => {
-    if (query === state.currentQuery) {
+    // Do not rerun the same query unless there was an error
+    if (query === state.currentQuery && state.error === null) {
       return;
     } else {
       dispatch(clearEntries());
