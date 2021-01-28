@@ -1,15 +1,15 @@
 import styled, { keyframes } from "styled-components";
 import { FaWikipediaW, FaStar } from "react-icons/fa";
 
-const rotateIn = keyframes`
-    0% { transform: rotate(-10deg); opacity: 0 }
-    100% { transform: rotate(0); opacity: 1 }
+const slideIn = keyframes`
+  0% { transform: translateY(5%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 `;
 
 export const Card = styled.article`
   padding: 15px 15px;
   width: 400px;
-  animation: ${rotateIn} 0.6s forwards;
+  animation: ${slideIn} 0.6s forwards;
 `;
 
 export const CardHeader = styled.div`
