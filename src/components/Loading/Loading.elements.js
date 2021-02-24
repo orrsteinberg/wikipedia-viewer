@@ -10,7 +10,6 @@ const pulse = keyframes`
 export const LoadingContainer = styled(Container)`
   padding-top: 30px;
   text-align: center;
-  height: 100vh;
 `;
 
 export const LoadingIcon = styled(CgSearchLoading)`

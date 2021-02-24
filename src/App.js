@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useBookmarks, useWikiSearch } from "./hooks";
 import { GlobalStyle, MainContainer } from "./globalStyles";
-import { CurrentSearchView, BookmarksView } from "./views";
+import { CurrentSearch, Bookmarks} from "./views";
 import { Navbar, Header, Search, ScrollUpArrow, Footer } from "./components";
 
 const App = () => {
@@ -15,23 +15,30 @@ const App = () => {
     clearBookmarks,
   ] = useBookmarks();
 
-  const renderCurrentView = () => {
-    if (view === "currentSearch") {
-      return (
-        <CurrentSearchView
-          entriesToView={entries}
-          {...{ status, error, searchForMore }}
-          {...{ bookmarks, addBookmark, removeBookmark }}
-        />
-      );
-    } else if (view === "bookmarks") {
-      return (
-        <BookmarksView
-          {...{ bookmarks, addBookmark, removeBookmark, clearBookmarks }}
-        />
-      );
-    }
-  };
+  let content;
+
+  if (view === "currentSearch") {
+    content = (
+      <CurrentSearch
+        entries={entries}
+        status={status}
+        error={error}
+        searchForMore={searchForMore}
+        bookmarks={bookmarks}
+        addBookmark={addBookmark}
+        removeBookmark={removeBookmark}
+      />
+    );
+  } else if (view === "bookmarks") {
+    content = (
+      <Bookmarks
+        bookmarks={bookmarks}
+        addBookmark={addBookmark}
+        removeBookmark={removeBookmark}
+        clearBookmarks={clearBookmarks}
+      />
+    );
+  }
 
   return (
     <>
@@ -44,7 +51,7 @@ const App = () => {
           changeView={setView}
           numBookmarks={Object.keys(bookmarks).length}
         />
-        {renderCurrentView()}
+        {content}
         <ScrollUpArrow />
         <Footer />
       </MainContainer>

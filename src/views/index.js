@@ -1,2 +1,2 @@
-export { default as CurrentSearchView } from "./CurrentSearchView";
-export { default as BookmarksView } from "./BookmarksView";
+export { default as CurrentSearch} from "./CurrentSearch";
+export { default as Bookmarks} from "./Bookmarks";
