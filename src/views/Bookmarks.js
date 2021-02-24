@@ -28,7 +28,7 @@ const ClearBookmarksButton = styled.button`
   }
 `;
 
-const BookmarksView = ({
+const Bookmarks = ({
   bookmarks,
   addBookmark,
   removeBookmark,
@@ -39,8 +39,10 @@ const BookmarksView = ({
   ) : (
     <>
       <Entries
-        entriesToView={bookmarks}
-        {...{ bookmarks, addBookmark, removeBookmark }}
+        entries={bookmarks}
+        bookmarks={bookmarks}
+        addBookmark={addBookmark}
+        removeBookmark={removeBookmark}
       />
       <ClearBookmarksButton onClick={clearBookmarks}>
         Clear All Bookmarks
@@ -49,11 +51,11 @@ const BookmarksView = ({
   );
 };
 
-BookmarksView.propTypes = {
+Bookmarks.propTypes = {
   bookmarks: PropTypes.object.isRequired,
   addBookmark: PropTypes.func.isRequired,
   removeBookmark: PropTypes.func.isRequired,
   clearBookmarks: PropTypes.func.isRequired,
 };
 
-export default BookmarksView;
+export default Bookmarks;

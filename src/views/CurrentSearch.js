@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { isEmpty } from "../lib/utils";
 import { Entries, Loading, Error } from "../components";
 
-const CurrentSearchView = ({
-  entriesToView,
+const CurrentSearch = ({
+  entries,
   status,
   error,
   searchForMore,
@@ -14,7 +14,7 @@ const CurrentSearchView = ({
   removeBookmark,
 }) => {
   // Conditions for displaying the Entries component
-  const showEntries = status !== "fetching" && !isEmpty(entriesToView);
+  const showEntries = status !== "fetching" && !isEmpty(entries);
 
   // Only pass a 'load more' function when appropriate
   const loadMore = status === "error" ? null : searchForMore;
@@ -24,9 +24,11 @@ const CurrentSearchView = ({
       {status === "fetching" && <Loading />}
       {showEntries && (
         <Entries
-          entriesToView={entriesToView}
+          entries={entries}
           loadMore={loadMore}
-          {...{ bookmarks, addBookmark, removeBookmark }}
+          bookmarks={bookmarks}
+          addBookmark={addBookmark}
+          removeBookmark={removeBookmark}
         />
       )}
       {status === "fetchingMore" && <Loading more />}
@@ -35,8 +37,8 @@ const CurrentSearchView = ({
   );
 };
 
-CurrentSearchView.propTypes = {
-  entriesToView: PropTypes.object.isRequired,
+CurrentSearch.propTypes = {
+  entries: PropTypes.object.isRequired,
   status: PropTypes.string.isRequired,
   error: PropTypes.object, // not required since it can be null
   searchForMore: PropTypes.func.isRequired,
@@ -45,4 +47,4 @@ CurrentSearchView.propTypes = {
   removeBookmark: PropTypes.func.isRequired,
 };
 
-export default CurrentSearchView;
+export default CurrentSearch;

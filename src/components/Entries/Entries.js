@@ -6,7 +6,7 @@ import { EntriesContainer, LoadMore, LoadMoreButton } from "./Entries.elements";
 import Entry from "./Entry";
 
 const Entries = ({
-  entriesToView,
+  entries,
   loadMore,
   bookmarks,
   addBookmark,
@@ -15,17 +15,17 @@ const Entries = ({
   // Check if the user is on a mobile device to create appropriate wiki page links
   const isMobileUser = isMobile();
 
-  const isEntryBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
+  const isBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
 
   return (
     <main>
       <EntriesContainer>
-        {Object.values(entriesToView).map((entry) => (
+        {Object.values(entries).map((entry) => (
           <Entry
             key={entry.pageid}
             entry={entry}
             isMobileUser={isMobileUser}
-            isBookmarked={isEntryBookmarked(entry.pageid)}
+            isBookmarked={isBookmarked(entry.pageid)}
             addBookmark={addBookmark}
             removeBookmark={removeBookmark}
           />
@@ -43,7 +43,7 @@ const Entries = ({
 };
 
 Entries.propTypes = {
-  entriesToView: PropTypes.object.isRequired,
+  entries: PropTypes.object.isRequired,
   bookmarks: PropTypes.object.isRequired,
   addBookmark: PropTypes.func.isRequired,
   removeBookmark: PropTypes.func.isRequired,
