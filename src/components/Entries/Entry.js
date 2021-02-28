@@ -26,8 +26,8 @@ const Entry = ({
 
   // If user is on mobile, use the mobile Wikipedia website version
   const articleUrl = isMobileUser
-    ? `https://en.m.wikipedia.org/?curid=${entry.pageid}`
-    : `https://en.wikipedia.org/?curid=${entry.pageid}`;
+    ? `https://en.m.wikipedia.org/wiki/${entry.title.replace(/ /g, "_")}`
+    : `https://en.wikipedia.org/wiki/${entry.title.replace(/ /g, "_")}`;
 
   const handleClick = () => {
     // Toggle current bookmark status and bookmarks update state
@@ -38,6 +38,10 @@ const Entry = ({
     }
 
     setBookmarked(!bookmarked);
+  };
+
+  const markup = {
+    __html: entry.snippet + "...",
   };
 
   return (
@@ -51,9 +55,7 @@ const Entry = ({
         </EntryTitle>
       </CardHeader>
       <CardBody>
-        <EntryText
-          dangerouslySetInnerHTML={{ __html: entry.snippet + "..." }}
-        />
+        <EntryText dangerouslySetInnerHTML={markup} />
         <CardButtons>
           <ArticleLink href={articleUrl} target="_blank">
             Visit article page &rarr;
