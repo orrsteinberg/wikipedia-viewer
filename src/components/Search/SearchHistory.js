@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
+
+import { useDetectPageClick } from "../../hooks";
 
 import {
   SearchHistoryContainer,
@@ -13,14 +15,10 @@ import {
   ClearHistoryButton,
 } from "./SearchHistory.elements";
 
-const SearchHistoryList = ({
-  history,
-  handleSearchClick,
-  deleteItem,
-  clearHistory,
-}) => (
-  <List>
-    {history.map((item) => (
+const SearchHistoryList = React.forwardRef(
+  ({ isOpen, history, handleSearchClick, deleteItem, clearHistory }, ref) => {
+    // History items
+    const historyItems = history.map((item) => (
       <ListItem key={item}>
         <ListItemText
           onClick={() => handleSearchClick(item)}
@@ -34,17 +32,29 @@ const SearchHistoryList = ({
           <FaTrash aria-label="Trash icon" />
         </ListItemDeleteButton>
       </ListItem>
-    ))}
-    <ListItem>
-      <ClearHistoryButton onClick={clearHistory}>
-        CLEAR HISTORY
-      </ClearHistoryButton>
-    </ListItem>
-  </List>
+    ));
+
+    // Keep the ref but only render the list if it's open
+    return (
+      <div ref={ref}>
+        {isOpen && (
+          <List active={isOpen}>
+            {historyItems}
+            <ListItem>
+              <ClearHistoryButton onClick={clearHistory}>
+                Clear History
+              </ClearHistoryButton>
+            </ListItem>
+          </List>
+        )}
+      </div>
+    );
+  }
 );
 
 const SearchHistory = ({ history, search, deleteItem, clearHistory }) => {
-  const [showList, setShowList] = useState(false);
+  const listElement = useRef(null);
+  const [showList, setShowList] = useDetectPageClick(listElement, false);
 
   const toggleList = () => setShowList(!showList);
 
@@ -63,14 +73,14 @@ const SearchHistory = ({ history, search, deleteItem, clearHistory }) => {
         )}{" "}
         Search History
       </SearchHistoryButton>
-      {showList && (
-        <SearchHistoryList
-          history={history}
-          deleteItem={deleteItem}
-          clearHistory={clearHistory}
-          handleSearchClick={handleSearchClick}
-        />
-      )}
+      <SearchHistoryList
+        ref={listElement}
+        isOpen={showList}
+        history={history}
+        deleteItem={deleteItem}
+        clearHistory={clearHistory}
+        handleSearchClick={handleSearchClick}
+      />
     </SearchHistoryContainer>
   );
 };
@@ -83,6 +93,7 @@ SearchHistory.propTypes = {
 };
 
 SearchHistoryList.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   history: PropTypes.array.isRequired,
   handleSearchClick: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
