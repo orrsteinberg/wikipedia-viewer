@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-    * {
+    *, *::before, *::after {
         box-sizing: border-box;
         padding: 0;
         margin: 0;
@@ -14,6 +14,34 @@ export const GlobalStyle = createGlobalStyle`
         color: #333;
         font-size: 1rem;
         line-height: 1.5;
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          height: 5px;
+          width: 100%;
+          background-image: linear-gradient(
+            90deg,
+            #7f0de9 11.76%,
+            #ffffff 11.76%,
+            #ffffff 26.47%,
+            #22e6cc 26.47%,
+            #22e6cc 38.24%,
+            #e64922 38.24%,
+            #e64922 50%,
+            #7f0de9 50%,
+            #7f0de9 61.76%,
+            #ffffff 61.76%,
+            #ffffff 76.47%,
+            #22e6cc 76.47%,
+            #22e6cc 88.24%,
+            #e64922 88.24%,
+            #e64922 100%
+          );
+          background-size: 300px 5px;
+        }
     }
 `;
 
@@ -34,7 +62,7 @@ export const Tooltip = styled.span`
   position: relative;
   font-size: 0.8rem;
 
-  &:before {
+  &::before {
     content: attr(data-text);
     position: absolute;
     top: 50%;
@@ -50,7 +78,7 @@ export const Tooltip = styled.span`
     display: none;
   }
 
-  &:after {
+  &::after {
     content: "";
     position: absolute;
     top: 50%;
