@@ -33,12 +33,12 @@ const Search = ({ search, changeView }) => {
     pushToHistory(query);
     changeView("currentSearch");
     search(query);
+    setQuery("");
   };
 
   const searchFromHistory = (item) => {
     // Update query input value and run search
     pushToHistory(item);
-    setQuery(item);
     changeView("currentSearch");
     search(item);
   };
