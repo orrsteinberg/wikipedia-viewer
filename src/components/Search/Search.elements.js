@@ -38,6 +38,7 @@ export const SearchInput = styled.input`
   transition: all 0.2s ease-out;
 
   &:focus {
+    outline: 0;
     border: 2px solid #e64922;
   }
 

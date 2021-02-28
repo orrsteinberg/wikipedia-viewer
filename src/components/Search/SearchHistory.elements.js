@@ -32,7 +32,7 @@ export const List = styled.ul`
   max-height: 350px;
 
   @media screen and (min-width: 690px) {
-    border-top: 2px solid #eee;
+    border-top: ${(props) => (props.active ? "2px solid #eee" : "none")};
     position: absolute;
     z-index: 1;
     max-width: 300px;
@@ -114,6 +114,7 @@ export const ClearHistoryButton = styled.button`
   padding: 5px 10px;
   color: #fff;
   font-size: 1.1rem;
+  text-transform: uppercase;
   cursor: pointer;
 
   @media (hover: hover) {

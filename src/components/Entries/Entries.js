@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
 import { isMobile } from "../../lib/utils";
@@ -13,7 +13,7 @@ const Entries = ({
   removeBookmark,
 }) => {
   // Check if the user is on a mobile device to create appropriate wiki page links
-  const isMobileUser = isMobile();
+  const isMobileUser = useMemo(isMobile, []);
 
   const isBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
 
