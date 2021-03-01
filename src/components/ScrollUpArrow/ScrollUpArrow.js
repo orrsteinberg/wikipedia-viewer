@@ -30,16 +30,34 @@ const ArrowIcon = styled(MdKeyboardArrowUp)`
   }
 `;
 
+function throttle(callback, interval) {
+  let allowCall = true;
+
+  return () => {
+    if (!allowCall) return;
+
+    allowCall = false;
+    callback();
+
+    setTimeout(() => {
+      allowCall = true;
+    }, interval);
+  };
+}
+
 const ScrollUpArrow = () => {
   const [showArrow, setShowArrow] = useState(false);
 
-  const checkScrollPosition = useCallback(() => {
-    if (!showArrow && window.pageYOffset > 400) {
-      setShowArrow(true);
-    } else if (showArrow && window.pageYOffset <= 400) {
-      setShowArrow(false);
-    }
-  }, [showArrow]);
+  const checkScrollPosition = useCallback(
+    throttle(() => {
+      if (!showArrow && window.pageYOffset > 400) {
+        setShowArrow(true);
+      } else if (showArrow && window.pageYOffset <= 400) {
+        setShowArrow(false);
+      }
+    }, 300),
+    [showArrow]
+  );
 
   useEffect(() => {
     window.addEventListener("scroll", checkScrollPosition);

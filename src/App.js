@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useBookmarks, useWikiSearch } from "./hooks";
 import { GlobalStyle, MainContainer } from "./globalStyles";
-import { CurrentSearch, Bookmarks} from "./views";
+import { CurrentSearch, Bookmarks } from "./views";
 import { Navbar, Header, Search, ScrollUpArrow, Footer } from "./components";
 
 const App = () => {
@@ -45,7 +45,7 @@ const App = () => {
       <GlobalStyle />
       <MainContainer>
         <Header />
-        <Search search={search} changeView={setView} />
+        <Search status={status} search={search} changeView={setView} />
         <Navbar
           currentView={view}
           changeView={setView}
