@@ -62,10 +62,19 @@ export const SearchButton = styled.button`
     &:hover {
       transform: scale(1.2);
     }
+
+    &:disabled:hover {
+      transform: scale(1);
+    }
   }
 
   &:focus {
     border-bottom: 2px solid #eee;
+  }
+
+  &:disabled {
+    color: #eee;
+    cursor: auto;
   }
 
   @media screen and (min-width: 690px) {

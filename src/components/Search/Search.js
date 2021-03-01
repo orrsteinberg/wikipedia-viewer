@@ -12,7 +12,7 @@ import {
   SearchButton,
 } from "./Search.elements";
 
-const Search = ({ search, changeView }) => {
+const Search = ({ status, search, changeView }) => {
   const [query, setQuery] = useState("");
   const inputFieldRef = useRef();
   const [
@@ -56,7 +56,11 @@ const Search = ({ search, changeView }) => {
             placeholder="Type to search..."
             ref={inputFieldRef}
           />
-          <SearchButton name="search-button" aria-label="Search button">
+          <SearchButton
+            name="search-button"
+            aria-label="Search button"
+            disabled={status === "fetching" || status === "fetchingMore"}
+          >
             <FaSearch aria-hidden="true" focusable="false" />
           </SearchButton>
         </SearchForm>
@@ -74,6 +78,7 @@ const Search = ({ search, changeView }) => {
 };
 
 Search.propTypes = {
+  status: PropTypes.string.isRequired,
   search: PropTypes.func.isRequired,
   changeView: PropTypes.func.isRequired,
 };
