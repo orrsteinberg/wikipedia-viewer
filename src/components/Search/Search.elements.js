@@ -13,7 +13,7 @@ export const SearchArea = styled.div`
   border-radius: 20px;
   border-bottom: 12px solid #eee;
   max-width: 960px;
-  min-height: 135px;
+  min-height: 145px;
 `;
 
 export const SearchForm = styled.form`
@@ -53,7 +53,6 @@ export const SearchButton = styled.button`
   background: none;
   cursor: pointer;
   border: none;
-  outline: none;
   color: #e64922;
   font-size: 3.2rem;
   transition: transform 0.2s ease;
@@ -69,7 +68,8 @@ export const SearchButton = styled.button`
   }
 
   &:focus {
-    border-bottom: 2px solid #eee;
+    box-shadow: none;
+    transform: scale(1.2);
   }
 
   &:disabled {
