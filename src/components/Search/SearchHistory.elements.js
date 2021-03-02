@@ -32,13 +32,29 @@ export const List = styled.ul`
   overflow-y: auto;
   padding: 0 10px;
   max-height: 350px;
+  /* Custom Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #e64922 transparent;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #e64922;
+    border-radius: 20px;
+    border: 3px solid #fff;
+  }
 
   @media screen and (min-width: 690px) {
     border-top: ${(props) => (props.active ? "2px solid #eee" : "none")};
     position: absolute;
     z-index: 1;
     min-width: 150px;
-    max-height: 250px;
+    max-height: 40%;
   }
 `;
 
