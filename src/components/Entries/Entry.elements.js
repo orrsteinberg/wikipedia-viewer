@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { FaWikipediaW, FaStar } from "react-icons/fa";
+import { FaWikipediaW } from "react-icons/fa";
 
 const slideIn = keyframes`
   0% { transform: translateY(5%); opacity: 0; }
@@ -82,16 +82,23 @@ export const ArticleLink = styled.a`
   text-decoration: none;
 `;
 
-export const BookmarkStarIcon = styled(FaStar)`
+export const BookmarkStar = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
   color: ${(props) => (props.$bookmarked ? "#ffd700" : "#ccc")};
   font-size: 34px;
-  cursor: pointer;
   transition: transform 0.15s ease-out;
+
+  &:focus {
+    box-shadow: none;
+    transform: scale(1.2);
+  }
 
   @media (hover: hover) {
     &:hover {
       color: #ffd700;
-      transform: scale(1.1);
+      transform: scale(1.2);
     }
   }
 `;

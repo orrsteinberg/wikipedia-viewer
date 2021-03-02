@@ -43,6 +43,23 @@ export const GlobalStyle = createGlobalStyle`
           background-size: 300px 5px;
         }
     }
+
+    span:focus, a:focus, svg:focus input:focus, button:focus {
+      outline: none;
+
+    }
+
+    span:focus, a:focus {
+      background: rgba(21, 156, 228, 0.4);
+    }
+
+    svg:focus {
+      transform: scale(1.2);
+    }
+
+    input:focus, button:focus {
+      box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+    }
 `;
 
 export const Container = styled.div`

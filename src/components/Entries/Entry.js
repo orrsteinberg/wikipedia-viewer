@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { FaStar } from "react-icons/fa";
 
 import { Tooltip } from "../../globalStyles";
 import {
@@ -12,7 +13,7 @@ import {
   EntryText,
   CardButtons,
   ArticleLink,
-  BookmarkStarIcon,
+  BookmarkStar,
 } from "./Entry.elements";
 
 const Entry = ({
@@ -61,13 +62,13 @@ const Entry = ({
             Visit article page &rarr;
           </ArticleLink>
           <Tooltip data-text="Bookmark">
-            <BookmarkStarIcon
-              role="button"
+            <BookmarkStar
               aria-label="Bookmark Button"
-              tabIndex="0"
-              $bookmarked={bookmarked}
               onClick={handleClick}
-            />
+              $bookmarked={bookmarked}
+            >
+              <FaStar />
+            </BookmarkStar>
           </Tooltip>
         </CardButtons>
       </CardBody>

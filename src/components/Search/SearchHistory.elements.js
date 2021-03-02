@@ -11,6 +11,8 @@ export const SearchHistoryContainer = styled.div`
 `;
 
 export const SearchHistoryButton = styled.button`
+  padding: 5px;
+  border-radius: 10px;
   margin-bottom: 10px;
   background: none;
   border: none;
@@ -27,17 +29,32 @@ export const SearchHistoryButton = styled.button`
 export const List = styled.ul`
   list-style: none;
   text-align: left;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 10px;
   max-height: 350px;
+  /* Custom Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: #e64922 transparent;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #e64922;
+    border-radius: 20px;
+    border: 3px solid #fff;
+  }
 
   @media screen and (min-width: 690px) {
     border-top: ${(props) => (props.active ? "2px solid #eee" : "none")};
     position: absolute;
     z-index: 1;
-    max-width: 300px;
     min-width: 150px;
-    max-height: 250px;
+    max-height: 40%;
   }
 `;
 
@@ -71,12 +88,19 @@ export const ListItem = styled.li`
   }
 `;
 
-export const ListItemText = styled.span`
+export const ListItemButton = styled.button`
+  background: none;
+  border: none;
   cursor: pointer;
   word-wrap: anywhere;
   margin-left: 5px;
   margin-right: 5px;
   font-size: 1.1rem;
+
+  &:focus {
+    box-shadow: none;
+    background: rgba(21, 156, 228, 0.4);
+  }
 
   @media (hover: hover) {
     &:hover {
