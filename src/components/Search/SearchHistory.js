@@ -9,7 +9,7 @@ import {
   SearchHistoryButton,
   List,
   ListItem,
-  ListItemText,
+  ListItemButton,
   ListItemIcon,
   ListItemDeleteButton,
   ClearHistoryButton,
@@ -20,14 +20,14 @@ const SearchHistoryList = React.forwardRef(
     // History items
     const historyItems = history.map((item) => (
       <ListItem key={item}>
-        <ListItemText
+        <ListItemButton
           onClick={() => handleSearchClick(item)}
           aria-label="Search history item"
           tabIndex="0"
           role="button"
         >
           <ListItemIcon aria-label="Search icon" /> {item}
-        </ListItemText>
+        </ListItemButton>
         <ListItemDeleteButton onClick={() => deleteItem(item)}>
           <FaTrash aria-label="Trash icon" />
         </ListItemDeleteButton>
