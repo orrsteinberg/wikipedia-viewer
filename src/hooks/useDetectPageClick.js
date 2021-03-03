@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
 
-// Detect clicks on the page in order to toggle active elements
+// Detect clicks on the page in order to toggle dropdown elements
 const useDetectPageClick = (elementRef, initialState) => {
   const [isActive, setIsActive] = useState(initialState);
 
   useEffect(() => {
     const handlePageClick = (event) => {
-      // If the target element is not the active element, we know the user clicked outside
-      // so we should deactivate it
-      if (elementRef.current && !elementRef.current.contains(event.target)) {
-        setIsActive(!isActive);
+      if (elementRef.current) {
+        // If the document does not contain the clicked target it means we deleted the item
+        // and we want to keep the list open
+        if (!document.contains(event.target)) return;
+
+        // Otherwise if it's in the document but outside of the list, it means we clicked outside
+        // and we want to close the list
+        if (!elementRef.current.contains(event.target)) {
+          setIsActive(false);
+        }
       }
     };
 
@@ -19,8 +25,9 @@ const useDetectPageClick = (elementRef, initialState) => {
     }
 
     // Cleanup on unmount
-    // (the element gets a state update when its deactivated and rerenders so we remove the click listener)
-    return () => window.removeEventListener("click", handlePageClick);
+    return () => {
+      window.removeEventListener("click", handlePageClick);
+    };
   });
 
   return [isActive, setIsActive];

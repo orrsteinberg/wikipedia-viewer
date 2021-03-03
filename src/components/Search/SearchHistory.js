@@ -16,12 +16,11 @@ import {
 } from "./SearchHistory.elements";
 
 const SearchHistoryList = React.forwardRef(
-  ({ isOpen, history, handleSearchClick, deleteItem, clearHistory }, ref) => {
-    // History items
+  ({ isOpen, history, searchItem, deleteItem, clearHistory }, ref) => {
     const historyItems = history.map((item) => (
       <ListItem key={item}>
         <ListItemButton
-          onClick={() => handleSearchClick(item)}
+          onClick={() => searchItem(item)}
           aria-label="Search history item"
           tabIndex="0"
           role="button"
@@ -34,20 +33,15 @@ const SearchHistoryList = React.forwardRef(
       </ListItem>
     ));
 
-    // Keep the ref but only render the list if it's open
     return (
-      <div ref={ref}>
-        {isOpen && (
-          <List active={isOpen}>
-            {historyItems}
-            <ListItem>
-              <ClearHistoryButton onClick={clearHistory}>
-                Clear History
-              </ClearHistoryButton>
-            </ListItem>
-          </List>
-        )}
-      </div>
+      <List isOpen={isOpen} ref={ref}>
+        {historyItems}
+        <ListItem>
+          <ClearHistoryButton onClick={clearHistory}>
+            Clear History
+          </ClearHistoryButton>
+        </ListItem>
+      </List>
     );
   }
 );
@@ -58,7 +52,7 @@ const SearchHistory = ({ history, search, deleteItem, clearHistory }) => {
 
   const toggleList = () => setShowList(!showList);
 
-  const handleSearchClick = (item) => {
+  const handleSearch = (item) => {
     toggleList();
     search(item);
   };
@@ -79,7 +73,7 @@ const SearchHistory = ({ history, search, deleteItem, clearHistory }) => {
         history={history}
         deleteItem={deleteItem}
         clearHistory={clearHistory}
-        handleSearchClick={handleSearchClick}
+        searchItem={handleSearch}
       />
     </SearchHistoryContainer>
   );
@@ -95,7 +89,7 @@ SearchHistory.propTypes = {
 SearchHistoryList.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   history: PropTypes.array.isRequired,
-  handleSearchClick: PropTypes.func.isRequired,
+  searchItem: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
   clearHistory: PropTypes.func.isRequired,
 };

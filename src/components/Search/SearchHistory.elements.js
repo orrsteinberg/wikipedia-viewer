@@ -50,7 +50,8 @@ export const List = styled.ul`
   }
 
   @media screen and (min-width: 690px) {
-    border-top: ${(props) => (props.active ? "2px solid #eee" : "none")};
+    border-top: ${(props) => (props.isOpen ? "2px solid #eee" : "none")};
+    visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
     position: absolute;
     z-index: 1;
     min-width: 150px;
