@@ -32,6 +32,7 @@ export const List = styled.ul`
   overflow-y: auto;
   padding: 0 10px;
   max-height: 350px;
+  display: ${(props) => (props.isOpen ? "block" : "none")};
   /* Custom Scrollbar */
   scrollbar-width: thin;
   scrollbar-color: #e64922 transparent;
@@ -51,7 +52,6 @@ export const List = styled.ul`
 
   @media screen and (min-width: 690px) {
     border-top: ${(props) => (props.isOpen ? "2px solid #eee" : "none")};
-    visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
     position: absolute;
     z-index: 1;
     min-width: 150px;
