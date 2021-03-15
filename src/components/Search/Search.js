@@ -54,6 +54,7 @@ const Search = ({ status, search, changeView }) => {
             value={query}
             onChange={handleInputChange}
             placeholder="Type to search..."
+            autoComplete="off"
             ref={inputFieldRef}
           />
           <SearchButton
