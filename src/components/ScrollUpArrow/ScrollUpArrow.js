@@ -14,9 +14,9 @@ const ArrowIcon = styled(MdKeyboardArrowUp)`
   right: 20px;
   z-index: 1000;
   cursor: pointer;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 50%;
-  box-shadow: 0px 0px 3px #555;
+  box-shadow: 0px 0px 3px var(--color-shadow);
   animation: ${fadeIn} 0.3s;
 
   @media screen and (min-width: 690px) {
