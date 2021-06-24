@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useSearchHistory = () => {
   const [history, setHistory] = useState([]);
@@ -12,27 +12,27 @@ const useSearchHistory = () => {
     }
   }, []);
 
-  const updateHistory = (updatedHistory) => {
+  const updateHistory = useCallback((updatedHistory) => {
     setHistory(updatedHistory);
 
     window.localStorage.setItem(
       "searchHistory",
       JSON.stringify(updatedHistory)
     );
-  };
+  }, []);
 
-  const pushToHistory = (item) => {
+  const pushToHistory = useCallback((item) => {
     // Add item to the beginning of the array and remove duplicates
     updateHistory(Array.from(new Set([item, ...history])));
-  };
+  }, [updateHistory, history]);
 
-  const deleteHistoryItem = (itemToDelete) => {
+  const deleteHistoryItem = useCallback((itemToDelete) => {
     updateHistory(history.filter((item) => item !== itemToDelete));
-  };
+  }, [updateHistory, history]);
 
-  const clearHistory = () => {
+  const clearHistory = useCallback(() => {
     updateHistory([]);
-  };
+  }, [updateHistory]);
 
   return [history, pushToHistory, deleteHistoryItem, clearHistory];
 };
