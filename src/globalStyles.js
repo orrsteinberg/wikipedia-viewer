@@ -1,6 +1,33 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+    :root {
+      --color-purple: #7f0de9;
+      --color-teal: #22e6cc;
+      --color-orange: #e64922;
+      --color-white: #ffffff;
+      --color-light: #fbfbfb;
+      --color-gray-lighter: #eeeeee;
+      --color-gray-light: #cccccc;
+      --color-gray-medium: #747474;
+      --color-gray-dark: #333333;
+      --color-gray-darker: #222222;
+      --color-bg: #0d1a4f;
+      --color-header-subtitle: #dfdfdf;
+      --color-focus: rgba(21, 156, 228, 0.4);
+      --color-text-highlight: #f1fdb9;
+      --color-link: #007bff;
+      --color-link-hover: #0056b3;
+      --color-button-bg: #12255b;
+      --color-gold: #ffd700;
+      --color-shadow: #555555;
+      --color-random-article-border: #13a360;
+      --color-history-button-text: #1d8253;
+      --color-delete-button: #e83232;
+      --color-clear-button: #d21313;
+      --color-clear-button-hover: #e31e1e;
+    }
+
     *, *::before, *::after {
         box-sizing: border-box;
         padding: 0;
@@ -10,8 +37,8 @@ export const GlobalStyle = createGlobalStyle`
     body {
         overflow-x: hidden;
         font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-        background-color: #0d1a4f;
-        color: #333;
+        background-color: var(--color-bg);
+        color: var(--color-gray-dark);
         font-size: 1rem;
         line-height: 1.5;
 
@@ -24,21 +51,21 @@ export const GlobalStyle = createGlobalStyle`
           width: 100%;
           background-image: linear-gradient(
             90deg,
-            #7f0de9 11.76%,
-            #ffffff 11.76%,
-            #ffffff 26.47%,
-            #22e6cc 26.47%,
-            #22e6cc 38.24%,
-            #e64922 38.24%,
-            #e64922 50%,
-            #7f0de9 50%,
-            #7f0de9 61.76%,
-            #ffffff 61.76%,
-            #ffffff 76.47%,
-            #22e6cc 76.47%,
-            #22e6cc 88.24%,
-            #e64922 88.24%,
-            #e64922 100%
+            var(--color-purple) 11.76%,
+            var(--color-white) 11.76%,
+            var(--color-white) 26.47%,
+            var(--color-teal) 26.47%,
+            var(--color-teal) 38.24%,
+            var(--color-orange) 38.24%,
+            var(--color-orange) 50%,
+            var(--color-purple) 50%,
+            var(--color-purple) 61.76%,
+            var(--color-white) 61.76%,
+            var(--color-white) 76.47%,
+            var(--color-teal) 76.47%,
+            var(--color-teal) 88.24%,
+            var(--color-orange) 88.24%,
+            var(--color-orange) 100%
           );
           background-size: 300px 5px;
         }
@@ -50,7 +77,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     span:focus, a:focus {
-      background: rgba(21, 156, 228, 0.4);
+      background: var(--color-focus);
     }
 
     svg:focus {
@@ -58,9 +85,11 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     input:focus, button:focus {
-      box-shadow: 0 0 0 5px rgba(21, 156, 228, 0.4);
+      box-shadow: 0 0 0 5px var(--color-focus);
     }
 `;
+
+// Reusable styled componets
 
 export const Container = styled.div`
   width: 100%;
@@ -88,8 +117,8 @@ export const Tooltip = styled.span`
     margin-right: 15px;
     padding: 5px 10px;
     border-radius: 10px;
-    background: #333;
-    color: #fff;
+    background: var(--color-gray-dark);
+    color: var(--color-white);
     text-align: center;
 
     display: none;
@@ -101,8 +130,8 @@ export const Tooltip = styled.span`
     top: 50%;
     transform: translateY(-50%);
     right: 100%;
-    border: 8px solid #333;
-    border-color: transparent transparent transparent #333;
+    border: 8px solid var(--color-gray-dark);
+    border-color: transparent transparent transparent var(--color-gray-dark);
     display: none;
   }
 

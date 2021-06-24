@@ -16,9 +16,9 @@ export const CardHeader = styled.div`
   padding: 15px;
   text-align: center;
   letter-spacing: 1.2px;
-  background-color: #fff;
-  border-left: solid 5px #7f0de9;
-  border-right: solid 5px #22e6cc;
+  background-color: var(--color-white);
+  border-left: solid 5px var(--color-purple);
+  border-right: solid 5px var(--color-teal);
   border-top-left-radius: 25px;
   display: flex;
   justify-content: center;
@@ -27,10 +27,10 @@ export const CardHeader = styled.div`
 
 export const CardBody = styled.div`
   letter-spacing: 1px;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 10px 15px 20px 15px;
-  border-left: solid 5px #ccc;
-  border-right: solid 5px #e64922;
+  border-left: solid 5px var(--color-gray-light);
+  border-right: solid 5px var(--color-orange);
   border-bottom-right-radius: 25px;
 `;
 
@@ -44,11 +44,11 @@ export const EntryTitle = styled.h3`
 
 export const EntryTitleLink = styled.a`
   text-decoration: none;
-  color: #007bff;
+  color: var(--color-link);
 
   @media (hover: hover) {
     &:hover {
-      color: #0056b3;
+      color: var(--color-link-hover);
       text-decoration: underline;
     }
   }
@@ -57,12 +57,12 @@ export const EntryTitleLink = styled.a`
 export const EntryText = styled.p`
   & > span {
     padding: 5px;
-    background-color: #f1fdb9;
+    background-color: var(--color-text-highlight);
   }
 `;
 
 export const CardHeaderWikiIcon = styled(FaWikipediaW)`
-  color: #747474;
+  color: var(--color-gray-medium);
   font-size: 34px;
   align-self: baseline;
 `;
@@ -78,7 +78,7 @@ export const ArticleLink = styled.a`
   background: none;
   margin-top: 15px;
   display: inline-block;
-  color: #007bff;
+  color: var(--color-link);
   text-decoration: none;
 `;
 
@@ -86,7 +86,8 @@ export const BookmarkStar = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  color: ${(props) => (props.$bookmarked ? "#ffd700" : "#ccc")};
+  color: ${(props) =>
+    props.$bookmarked ? "var(--color-gold)" : "var(--color-gray-light)"};
   font-size: 34px;
   transition: transform 0.15s ease-out;
 
@@ -97,7 +98,7 @@ export const BookmarkStar = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      color: #ffd700;
+      color: var(--color-gold);
       transform: scale(1.2);
     }
   }

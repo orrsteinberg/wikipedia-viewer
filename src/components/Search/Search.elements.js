@@ -7,11 +7,11 @@ export const SearchContainer = styled(Container)`
 
 export const SearchArea = styled.div`
   margin: 20px auto 30px auto;
-  background-color: #fff;
+  background-color: var(--color-white);
   padding-top: 30px;
   padding-bottom: 10px;
   border-radius: 20px;
-  border-bottom: 12px solid #eee;
+  border-bottom: 12px solid var(--color-gray-lighter);
   max-width: 960px;
   min-height: 145px;
 `;
@@ -31,7 +31,7 @@ export const SearchForm = styled.form`
 export const SearchInput = styled.input`
   padding: 10px 20px;
   max-width: 300px;
-  border: 2px solid #eee;
+  border: 2px solid var(--color-gray-lighter);
   border-radius: 20px;
   font-size: 1.5rem;
   margin-bottom: 20px;
@@ -39,7 +39,7 @@ export const SearchInput = styled.input`
 
   &:focus {
     outline: 0;
-    border: 2px solid #e64922;
+    border: 2px solid var(--color-orange);
   }
 
   @media screen and (min-width: 690px) {
@@ -53,7 +53,7 @@ export const SearchButton = styled.button`
   background: none;
   cursor: pointer;
   border: none;
-  color: #e64922;
+  color: var(--color-orange);
   font-size: 3.2rem;
   transition: transform 0.2s ease;
 
@@ -73,7 +73,7 @@ export const SearchButton = styled.button`
   }
 
   &:disabled {
-    color: #eee;
+    color: var(--color-gray-lighter);
     cursor: auto;
   }
 

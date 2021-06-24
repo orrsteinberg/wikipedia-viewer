@@ -4,12 +4,12 @@ import { FaWikipediaW } from "react-icons/fa";
 export const HeaderWrapper = styled.div`
   text-align: center;
   padding-top: 20px;
-  color: #fff;
+  color: var(--color-white);
 `;
 
 export const Logo = styled(FaWikipediaW)`
   display: inline-block;
-  border-bottom: 3px solid #e64922;
+  border-bottom: 3px solid var(--colror-orange);
   font-size: 30px;
   padding: 5px 0;
 `;
@@ -28,5 +28,5 @@ export const HeaderSubtitle = styled.h2`
   font-size: 2rem;
   letter-spacing: 3px;
   line-height: 1.2;
-  color: #dfdfdf;
+  color: var(--color-header-subtitle);
 `;

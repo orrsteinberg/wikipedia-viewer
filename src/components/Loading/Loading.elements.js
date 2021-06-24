@@ -13,7 +13,7 @@ export const LoadingContainer = styled(Container)`
 `;
 
 export const LoadingIcon = styled(CgSearchLoading)`
-  color: #fff;
+  color: var(--color-white);
   font-size: 4rem;
   animation-name: ${pulse};
   animation-duration: 2s;
@@ -22,6 +22,6 @@ export const LoadingIcon = styled(CgSearchLoading)`
 
 export const LoadingText = styled.p`
   margin-top: 20px;
-  color: #fff;
+  color: var(--color-white);
   font-size: 1.2rem;
 `;

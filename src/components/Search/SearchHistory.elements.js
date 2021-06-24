@@ -16,7 +16,10 @@ export const SearchHistoryButton = styled.button`
   margin-bottom: 10px;
   background: none;
   border: none;
-  color: ${(props) => (props.active ? "#333" : "#1d8253")};
+  color: ${(props) =>
+    props.active
+      ? "var(--color-gray-dark)"
+      : "var(--color-history-button-text)"};
   font-size: 1.2rem;
   cursor: pointer;
 
@@ -35,7 +38,7 @@ export const List = styled.ul`
   display: ${(props) => (props.isOpen ? "block" : "none")};
   /* Custom Scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: #e64922 transparent;
+  scrollbar-color: var(c--color-orange) transparent;
 
   &::-webkit-scrollbar {
     width: 12px;
@@ -45,13 +48,14 @@ export const List = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #e64922;
+    background-color: var(c--color-orange);
     border-radius: 20px;
-    border: 3px solid #fff;
+    border: 3px solid var(--color-white);
   }
 
   @media screen and (min-width: 690px) {
-    border-top: ${(props) => (props.isOpen ? "2px solid #eee" : "none")};
+    border-top: ${(props) =>
+      props.isOpen ? "2px solid var(--color-gray-lighter)" : "none"};
     position: absolute;
     z-index: 1;
     min-width: 150px;
@@ -60,8 +64,8 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  background: #fff;
-  color: #333;
+  background: var(--color-white);
+  color: var(--color-gray-dark);
   padding: 5px;
   display: flex;
   flex-direction: row;
@@ -70,12 +74,12 @@ export const ListItem = styled.li`
   align-items: center;
 
   &:nth-child(odd) {
-    border-left: 3px solid #7f0de9;
+    border-left: 3px solid var(--color-purple);
   }
 
   &:nth-child(even) {
-    background: #fbfbfb;
-    border-left: 3px solid #e64922;
+    background: var(--color-light);
+    border-left: 3px solid var(--color-orange);
   }
 
   @media screen and (min-width: 690px) {
@@ -100,7 +104,7 @@ export const ListItemButton = styled.button`
 
   &:focus {
     box-shadow: none;
-    background: rgba(21, 156, 228, 0.4);
+    background: var(--color-focus);
   }
 
   @media (hover: hover) {
@@ -116,7 +120,7 @@ export const ListItemButton = styled.button`
 
 export const ListItemIcon = styled(FaSearch)`
   font-size: 20px;
-  color: #eee;
+  color: var(--color-gray-lighter);
 `;
 
 export const ListItemDeleteButton = styled.button`
@@ -124,7 +128,7 @@ export const ListItemDeleteButton = styled.button`
   border: none;
   padding: 5px;
   font-size: 1.2rem;
-  color: #e83232;
+  color: var(--color-delete-button);
   cursor: pointer;
 
   @media screen and (min-width: 690px) {
@@ -134,17 +138,17 @@ export const ListItemDeleteButton = styled.button`
 
 export const ClearHistoryButton = styled.button`
   width: 100%;
-  background: #d21313;
+  background: var(--color-clear-button);
   border: none;
   padding: 5px 10px;
-  color: #fff;
+  color: var(--color-white);
   font-size: 1.1rem;
   text-transform: uppercase;
   cursor: pointer;
 
   @media (hover: hover) {
     &:hover {
-      background: #e31e1e;
+      background: var(--color-clear-button-hover);
     }
   }
 

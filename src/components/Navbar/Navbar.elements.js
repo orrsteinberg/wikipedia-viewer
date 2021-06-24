@@ -46,10 +46,10 @@ export const BackButton = styled.button`
   display: block;
   border: none;
   margin: auto;
-  background-color: #12255b;
+  background-color: var(--color-button-bg);
   padding: 10px 20px;
   font-size: 1rem;
-  color: #fff;
+  color: var(--color-white);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -68,15 +68,15 @@ export const RandomArticleButton = styled.a`
   padding: 12px 12px;
   margin: 20px auto auto auto;
   max-width: 160px;
-  color: #fff;
-  border-bottom: 3px dashed #13a360;
+  color: var(--color-white);
+  border-bottom: 3px dashed var(--color-random-article-border);
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 
   @media (hover: hover) {
     &:hover {
-      border-bottom: 3px dashed #22e6cc;
+      border-bottom: 3px dashed var(--color-teal);
     }
   }
 
@@ -91,10 +91,10 @@ export const BookmarksButton = styled.button`
   align-items: end;
   border: none;
   margin: auto;
-  background-color: #12255b;
+  background-color: var(--color-button-bg);
   padding: 10px 20px;
   font-size: 1rem;
-  color: #fff;
+  color: var(--color-white);
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -107,7 +107,7 @@ export const BookmarksButton = styled.button`
 `;
 
 export const StarIcon = styled(FaStar)`
-  color: #ffd700;
+  color: var(--color-gold);
   font-size: 20px;
   margin-left: 5px;
 `;

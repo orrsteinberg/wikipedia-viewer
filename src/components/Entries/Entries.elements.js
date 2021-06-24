@@ -22,11 +22,11 @@ export const LoadMoreButton = styled.button`
   padding: 12px 12px;
   margin-left: auto;
   border: 0;
-  background-color: #12255b;
+  background-color: var(--color-button-bg);
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.3rem;
-  color: #fff;
+  color: var(--color-white);
   transition: all 0.2s ease;
 
   @media (hover: hover) {
