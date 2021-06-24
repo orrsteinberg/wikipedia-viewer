@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 
 import { mergeEntries } from "../lib/utils";
 import api from "../lib/api";
@@ -7,7 +7,7 @@ import api from "../lib/api";
 
 const initialState = {
   status: "idle", // "idle" | "fetching" | "fetchingMore" | "error"
-  entries: {}, // { [entryId]: entry }
+  entries: { byId: {}, allIds: [] }, // { byId: { [id]: entry }, allIds: entryIds[] }
   error: null, // { message: error.message }
   currentQuery: "",
   currentOffset: 0,
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         status: "error",
-        entries: {},
+        entries: { byId: {}, allIds: [] },
         error: { message: "No results found" },
       };
 
@@ -66,7 +66,7 @@ const reducer = (state, action) => {
     case "CLEAR_ENTRIES":
       return {
         ...state,
-        entries: {},
+        entries: { byId: {}, allIds: [] },
       };
 
     default:
@@ -90,7 +90,7 @@ const clearEntries = () => ({ type: "CLEAR_ENTRIES" });
 const useWikiSearch = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const wikiSearch = async (query, offset, fetchAction) => {
+  const wikiSearch = useCallback(async (query, offset, fetchAction) => {
     // dispatch either fetch(query) or fetchMore(currentQuery)
     // the argument is irrelevant to the fetchMore action creator...
     dispatch(fetchAction(query));
@@ -110,21 +110,24 @@ const useWikiSearch = () => {
     } catch (err) {
       dispatch(fetchError());
     }
-  };
+  }, []);
 
   // New search
-  const search = async (query) => {
-    // Do not rerun the same query unless there was an error
-    if (query === state.currentQuery && state.error === null) {
-      return;
-    } else {
-      dispatch(clearEntries());
-      return await wikiSearch(query, 0, fetch);
-    }
-  };
+  const search = useCallback(
+    async (query) => {
+      // Do not rerun the same query unless there was an error
+      if (query === state.currentQuery && state.error === null) {
+        return;
+      } else {
+        dispatch(clearEntries());
+        return await wikiSearch(query, 0, fetch);
+      }
+    },
+    [state.currentQuery, state.error, wikiSearch]
+  );
 
   // Fetch more entries
-  const searchForMore = async () => {
+  const searchForMore = useCallback(async () => {
     // If the current offset is null then we've reached the end of the results
     // in the previous search, and there are no more entries to fetch
     if (state.currentOffset === null) {
@@ -132,7 +135,7 @@ const useWikiSearch = () => {
     }
 
     return await wikiSearch(state.currentQuery, state.currentOffset, fetchMore);
-  };
+  }, [state.currentQuery, state.currentOffset, wikiSearch]);
 
   return [state, search, searchForMore];
 };

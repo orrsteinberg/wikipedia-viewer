@@ -15,26 +15,27 @@ const Entries = ({
   // Check if the user is on a mobile device to create appropriate wiki page links
   const isMobileUser = useMemo(isMobile, []);
 
-  const isBookmarked = (entryId) => Boolean(bookmarks[`_${entryId}`]);
+  const isBookmarked = (entryId) => Boolean(bookmarks.byId[entryId]);
 
   return (
     <main>
       <EntriesContainer>
-        {Object.values(entries).map((entry) => (
-          <Entry
-            key={entry.pageid}
-            entry={entry}
-            isMobileUser={isMobileUser}
-            isBookmarked={isBookmarked(entry.pageid)}
-            addBookmark={addBookmark}
-            removeBookmark={removeBookmark}
-          />
-        ))}
+        {entries.allIds.map((entryId) => {
+          const entry = entries.byId[entryId];
+          return (
+            <Entry
+              key={entryId}
+              entry={entry}
+              isMobileUser={isMobileUser}
+              isBookmarked={isBookmarked(entryId)}
+              addBookmark={addBookmark}
+              removeBookmark={removeBookmark}
+            />
+          );
+        })}
         {loadMore && (
           <LoadMore>
-            <LoadMoreButton onClick={() => loadMore()}>
-              Load more
-            </LoadMoreButton>
+            <LoadMoreButton onClick={loadMore}>Load more</LoadMoreButton>
           </LoadMore>
         )}
       </EntriesContainer>

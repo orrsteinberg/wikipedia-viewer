@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { isEmpty } from "../lib/utils";
 import { Entries, Loading, Error } from "../components";
 
 const CurrentSearch = ({
@@ -14,7 +13,7 @@ const CurrentSearch = ({
   removeBookmark,
 }) => {
   // Conditions for displaying the Entries component
-  const showEntries = status !== "fetching" && !isEmpty(entries);
+  const showEntries = status !== "fetching" && entries.allIds.length > 0;
 
   // Only pass a 'load more' function when appropriate
   const loadMore = status === "error" ? null : searchForMore;

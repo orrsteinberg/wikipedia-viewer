@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { isEmpty } from "../lib/utils";
 import { Entries, Error } from "../components";
 
 const ClearBookmarksButton = styled.button`
@@ -10,16 +9,16 @@ const ClearBookmarksButton = styled.button`
   margin: 30px auto 0 auto;
   border-radius: 5px;
   padding: 10px 20px;
-  background: #d21313;
+  background: var(--color-clear-button);
   border: none;
   text-align: center;
-  color: #fff;
+  color: var(--color-white);
   font-size: 1.1rem;
   cursor: pointer;
 
   @media (hover: hover) {
     &:hover {
-      background: #e31e1e;
+      background: var(--color-clear-button-hover);
     }
   }
 
@@ -34,7 +33,7 @@ const Bookmarks = ({
   removeBookmark,
   clearBookmarks,
 }) => {
-  return isEmpty(bookmarks) ? (
+  return bookmarks.allIds.length === 0 ? (
     <Error message="No bookmarks to display" />
   ) : (
     <>

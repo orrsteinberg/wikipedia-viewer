@@ -8,12 +8,8 @@ import { Navbar, Header, Search, ScrollUpArrow, Footer } from "./components";
 const App = () => {
   const [view, setView] = useState("currentSearch");
   const [{ status, entries, error }, search, searchForMore] = useWikiSearch();
-  const [
-    bookmarks,
-    addBookmark,
-    removeBookmark,
-    clearBookmarks,
-  ] = useBookmarks();
+  const [bookmarks, addBookmark, removeBookmark, clearBookmarks] =
+    useBookmarks();
 
   let content;
 
@@ -49,7 +45,7 @@ const App = () => {
         <Navbar
           currentView={view}
           changeView={setView}
-          numBookmarks={Object.keys(bookmarks).length}
+          numBookmarks={bookmarks.allIds.length}
         />
         {content}
         <ScrollUpArrow />

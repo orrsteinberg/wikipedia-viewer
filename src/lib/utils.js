@@ -1,18 +1,25 @@
-// Check if an object is empty
-export const isEmpty = (obj) => Object.keys(obj).length === 0;
-
 // Parse and merge new entries with current ones to avoid duplicates
+const filterDuplicates = (currentEntries) => (entry) =>
+  !currentEntries.byId[entry.pageid];
+
+const normalizeById = (entriesById, entry) => ({ ...entriesById, [entry.pageid]: entry });
+
+const extractEntryId = ({ pageid }) => pageid;
+
 export const mergeEntries = ({ currentEntries, newEntries }) => {
-  return newEntries.reduce((obj, entry) => {
-    if (!obj[`_${entry.pageid}`]) {
-      return {
-        ...obj,
-        // Prefix _ to bypass auto-sorting of objects so that new entries are appended to the end
-        [`_${entry.pageid}`]: entry,
-      };
-    }
-    return obj;
-  }, currentEntries);
+  const filteredNewEntries = newEntries.filter(
+    filterDuplicates(currentEntries)
+  );
+  return {
+    byId: {
+      ...currentEntries.byId,
+      ...filteredNewEntries.reduce(normalizeById, {}),
+    },
+    allIds: [
+      ...currentEntries.allIds,
+      ...filteredNewEntries.map(extractEntryId),
+    ],
+  };
 };
 
 // Check if the user is on a mobile device
